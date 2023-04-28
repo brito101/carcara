@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Auth;
@@ -27,12 +28,18 @@ Route::group(['middleware' => ['auth']], function () {
 
         /** Users */
         Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
-        Route::get('/users/destroy/{id}', [UserController::class, 'destroy']);
         Route::resource('users', UserController::class);
 
         /**
+         * Settings
+         */
+
+        /** Organizations */
+        Route::resource('organizations', OrganizationController::class);
+
+        /**
          * ACL
-         * */
+         */
         /** Permissions */
         Route::get('/permission/destroy/{id}', [PermissionController::class, 'destroy']);
         Route::resource('permission', PermissionController::class);

@@ -1,9 +1,6 @@
 @extends('adminlte::page')
-@section('plugins.select2', true)
-@section('plugins.BsCustomFileInput', true)
-@section('plugins.BootstrapSelect', true)
 
-@section('title', '- Edição de Filial')
+@section('title', '- Edição de Organização')
 
 @section('content')
 
@@ -11,13 +8,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><i class="far fa-fw fa-building"></i> Editar Filial</h1>
+                    <h1><i class="fas fa-fw fa-building"></i> Editar Organiação</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.subsidiaries.index') }}">Filiais</a></li>
-                        <li class="breadcrumb-item active">Editar Filial</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.organizations.index') }}">Organizações</a></li>
+                        <li class="breadcrumb-item active">Editar Organização</li>
                     </ol>
                 </div>
             </div>
@@ -33,51 +30,42 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Dados Cadastrais da Filial</h3>
+                            <h3 class="card-title">Dados Cadastrais da Organização</h3>
                         </div>
 
                         <form method="POST"
-                            action="{{ route('admin.subsidiaries.update', ['subsidiary' => $subsidiary->id]) }}">
+                            action="{{ route('admin.organizations.update', ['organization' => $organization->id]) }}">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="id" value="{{ $subsidiary->id }}">
+                            <input type="hidden" name="id" value="{{ $organization->id }}">
                             <div class="card-body">
 
                                 <div class="d-flex flex-wrap justify-content-between">
                                     <div class="col-12 col-md-6 form-group px-0 pr-md-2">
-                                        <label for="social_name">Nome Empresarial</label>
+                                        <label for="social_name">Nome da Organização</label>
                                         <input type="text" class="form-control" id="social_name"
                                             placeholder="Nome da Empresa" name="social_name"
-                                            value="{{ old('social_name') ?? $subsidiary->social_name }}" required>
+                                            value="{{ old('social_name') ?? $organization->social_name }}" required>
                                     </div>
                                     <div class="col-12 col-md-6 form-group px-0 pl-md-2">
                                         <label for="alias_name">Nome Fantasia</label>
                                         <input type="text" class="form-control" id="alias_name"
                                             placeholder="Nome Fantasia" name="alias_name"
-                                            value="{{ old('alias_name') ?? $subsidiary->alias_name }}" required>
+                                            value="{{ old('alias_name') ?? $organization->alias_name }}" required>
                                     </div>
                                 </div>
 
                                 <div class="d-flex flex-wrap justify-content-between">
                                     <div class="col-12 col-md-6 form-group px-0 pr-md-2">
-                                        <label for="document_company">CNPJ</label>
-                                        <input type="text" class="form-control" id="document_company" placeholder="CNPJ"
-                                            name="document_company"
-                                            value="{{ old('document_company') ?? $subsidiary->document_company }}" required>
+                                        <label for="code">Código</label>
+                                        <input type="text" class="form-control" id="code"
+                                            placeholder="Código caso exista" name="code"
+                                            value="{{ old('code') ?? $organization->code }}">
                                     </div>
                                     <div class="col-12 col-md-6 form-group px-0 pl-md-2">
-                                        <label for="document_company_secondary">Inscrição Estadual</label>
-                                        <input type="text" class="form-control" id="document_company_secondary"
-                                            placeholder="Inscrição Estadual" name="document_company_secondary"
-                                            value="{{ old('document_company_secondary') ?? $subsidiary->document_company_secondary }}">
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="col-12 col-md-6 form-group px-0 pr-md-2">
                                         <label for="email">E-mail</label>
                                         <input type="email" class="form-control" id="email" placeholder="E-mail"
-                                            name="email" value="{{ old('email') ?? $subsidiary->email }}" required>
+                                            name="email" value="{{ old('email') ?? $organization->email }}" required>
                                     </div>
                                 </div>
 
@@ -85,13 +73,13 @@
                                     <div class="col-12 col-md-6 form-group px-0 pr-md-2">
                                         <label for="telephone">Telefone</label>
                                         <input type="tel" class="form-control" id="telephone" placeholder="Telefone"
-                                            name="telephone" value="{{ old('telephone') ?? $subsidiary->telephone }}"
+                                            name="telephone" value="{{ old('telephone') ?? $organization->telephone }}"
                                             required>
                                     </div>
                                     <div class="col-12 col-md-6 form-group px-0 pl-md-2">
                                         <label for="cell">Celular</label>
                                         <input type="tel" class="form-control" id="cell" placeholder="Celular"
-                                            name="cell" value="{{ old('cell') ?? $subsidiary->cell }}">
+                                            name="cell" value="{{ old('cell') ?? $organization->cell }}">
                                     </div>
                                 </div>
 
@@ -99,12 +87,12 @@
                                     <div class="col-12 col-md-6 form-group px-0 pr-md-2">
                                         <label for="zipcode">CEP</label>
                                         <input type="tel" class="form-control" id="zipcode" placeholder="CEP"
-                                            name="zipcode" value="{{ old('zipcode') ?? $subsidiary->zipcode }}" required>
+                                            name="zipcode" value="{{ old('zipcode') ?? $organization->zipcode }}" required>
                                     </div>
                                     <div class="col-12 col-md-6 form-group px-0 pl-md-2">
                                         <label for="street">Rua</label>
                                         <input type="text" class="form-control" id="street" placeholder="Rua"
-                                            name="street" value="{{ old('street') ?? $subsidiary->street }}" required>
+                                            name="street" value="{{ old('street') ?? $organization->street }}" required>
                                     </div>
                                 </div>
 
@@ -112,13 +100,13 @@
                                     <div class="col-12 col-md-6 form-group px-0 pr-md-2">
                                         <label for="number">Número</label>
                                         <input type="text" class="form-control" id="number" placeholder="Número"
-                                            name="number" value="{{ old('number') ?? $subsidiary->number }}" required>
+                                            name="number" value="{{ old('number') ?? $organization->number }}" required>
                                     </div>
                                     <div class="col-12 col-md-6 form-group px-0 pl-md-2">
                                         <label for="complement">Complemento</label>
                                         <input type="text" class="form-control" id="complement"
                                             placeholder="Complemento" name="complement"
-                                            value="{{ old('complement') ?? $subsidiary->complement }}">
+                                            value="{{ old('complement') ?? $organization->complement }}">
                                     </div>
                                 </div>
 
@@ -127,12 +115,12 @@
                                         <label for="neighborhood">Bairro</label>
                                         <input type="text" class="form-control" id="neighborhood"
                                             placeholder="Bairro" name="neighborhood"
-                                            value="{{ old('neighborhood') ?? $subsidiary->neighborhood }}" required>
+                                            value="{{ old('neighborhood') ?? $organization->neighborhood }}" required>
                                     </div>
                                     <div class="col-12 col-md-6 form-group px-0 pl-md-2">
                                         <label for="city">Cidade</label>
                                         <input type="text" class="form-control" id="city" placeholder="Cidade"
-                                            name="city" value="{{ old('city') ?? $subsidiary->city }}" required>
+                                            name="city" value="{{ old('city') ?? $organization->city }}" required>
                                     </div>
                                 </div>
 
@@ -140,66 +128,7 @@
                                     <div class="col-12 col-md-6 form-group px-0 pr-md-2">
                                         <label for="state">Estado</label>
                                         <input type="text" class="form-control" id="state" placeholder="UF"
-                                            name="state" value="{{ old('state') ?? $subsidiary->state }}" required>
-                                    </div>
-                                </div>
-
-                                @php
-                                    $config = [
-                                        'title' => 'Selecione múltiplos...',
-                                        'liveSearch' => true,
-                                        'liveSearchPlaceholder' => 'Pesquisar...',
-                                        'showTick' => true,
-                                        'actionsBox' => true,
-                                    ];
-                                @endphp
-
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="col-12 form-group px-0">
-                                        <x-adminlte-select-bs id="managers" name="managers[]" label="Gerentes"
-                                            label-class="text-dark" igroup-size="md" :config="$config" multiple
-                                            class="border">
-                                            @foreach ($managers as $manager)
-                                                <option value="{{ $manager->id }}"
-                                                    {{ in_array($manager->id, $subsidiary->managers->pluck('user_id')->toArray()) ? 'selected' : '' }}>
-                                                    {{ $manager->name }}
-                                                    ({{ $manager->email }})
-                                                </option>
-                                            @endforeach
-                                        </x-adminlte-select-bs>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="col-12 form-group px-0">
-                                        <x-adminlte-select-bs id="collaborators" name="collaborators[]"
-                                            label="Colaboradores" label-class="text-dark" igroup-size="md"
-                                            :config="$config" multiple class="border">
-                                            @foreach ($collaborators as $collaborator)
-                                                <option value="{{ $collaborator->id }}"
-                                                    {{ in_array($collaborator->id, $subsidiary->collaborators->pluck('user_id')->toArray()) ? 'selected' : '' }}>
-                                                    {{ $collaborator->name }}
-                                                    ({{ $collaborator->email }})
-                                                    : {{ $collaborator->type }}
-                                                </option>
-                                            @endforeach
-                                        </x-adminlte-select-bs>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="col-12 form-group px-0">
-                                        <x-adminlte-select-bs id="financiers" name="financiers[]" label="Financistas"
-                                            label-class="text-dark" igroup-size="md" :config="$config" multiple
-                                            class="border">
-                                            @foreach ($financiers as $financier)
-                                                <option value="{{ $financier->id }}"
-                                                    {{ in_array($financier->id, $subsidiary->financiers->pluck('user_id')->toArray()) ? 'selected' : '' }}>
-                                                    {{ $financier->name }}
-                                                    ({{ $financier->email }})
-                                                </option>
-                                            @endforeach
-                                        </x-adminlte-select-bs>
+                                            name="state" value="{{ old('state') ?? $organization->state }}" required>
                                     </div>
                                 </div>
                             </div>

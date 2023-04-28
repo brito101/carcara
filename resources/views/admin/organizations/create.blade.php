@@ -1,9 +1,6 @@
 @extends('adminlte::page')
-@section('plugins.select2', true)
-@section('plugins.BsCustomFileInput', true)
-@section('plugins.BootstrapSelect', true)
 
-@section('title', '- Cadastro de Filial')
+@section('title', '- Cadastro de Organização')
 
 @section('content')
 
@@ -11,13 +8,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><i class="far fa-fw fa-building"></i> Nova Filial</h1>
+                    <h1><i class="fas fa-fw fa-building"></i> Nova Organização</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.subsidiaries.index') }}">Filiais</a></li>
-                        <li class="breadcrumb-item active">Nova Filial</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.organizations.index') }}">Organizações</a></li>
+                        <li class="breadcrumb-item active">Nova Organização</li>
                     </ol>
                 </div>
             </div>
@@ -33,16 +30,16 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Dados Cadastrais da Filial</h3>
+                            <h3 class="card-title">Dados Cadastrais da Organização</h3>
                         </div>
 
-                        <form method="POST" action="{{ route('admin.subsidiaries.store') }}">
+                        <form method="POST" action="{{ route('admin.organizations.store') }}">
                             @csrf
                             <div class="card-body">
 
                                 <div class="d-flex flex-wrap justify-content-between">
                                     <div class="col-12 col-md-6 form-group px-0 pr-md-2">
-                                        <label for="social_name">Nome Empresarial</label>
+                                        <label for="social_name">Nome da Organização</label>
                                         <input type="text" class="form-control" id="social_name"
                                             placeholder="Nome da Empresa" name="social_name"
                                             value="{{ old('social_name') }}" required>
@@ -57,20 +54,12 @@
 
                                 <div class="d-flex flex-wrap justify-content-between">
                                     <div class="col-12 col-md-6 form-group px-0 pr-md-2">
-                                        <label for="document_company">CNPJ</label>
-                                        <input type="text" class="form-control" id="document_company" placeholder="CNPJ"
-                                            name="document_company" value="{{ old('document_company') }}" required>
+                                        <label for="code">Código</label>
+                                        <input type="text" class="form-control" id="code"
+                                            placeholder="Código caso exista" name="code" value="{{ old('code') }}">
                                     </div>
-                                    <div class="col-12 col-md-6 form-group px-0 pl-md-2">
-                                        <label for="document_company_secondary">Inscrição Estadual</label>
-                                        <input type="text" class="form-control" id="document_company_secondary"
-                                            placeholder="Inscrição Estadual" name="document_company_secondary"
-                                            value="{{ old('document_company_secondary') }}">
-                                    </div>
-                                </div>
 
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="col-12 col-md-6 form-group px-0 pr-md-2">
+                                    <div class="col-12 col-md-6 form-group px-0 pl-md-2">
                                         <label for="email">E-mail</label>
                                         <input type="email" class="form-control" id="email" placeholder="E-mail"
                                             name="email" value="{{ old('email') }}" required>
@@ -135,62 +124,6 @@
                                         <label for="state">Estado</label>
                                         <input type="text" class="form-control" id="state" placeholder="UF"
                                             name="state" value="{{ old('state') }}" required>
-                                    </div>
-                                </div>
-
-                                @php
-                                    $config = [
-                                        'title' => 'Selecione múltiplos...',
-                                        'liveSearch' => true,
-                                        'liveSearchPlaceholder' => 'Pesquisar...',
-                                        'showTick' => true,
-                                        'actionsBox' => true,
-                                    ];
-                                @endphp
-
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="col-12 form-group px-0">
-                                        <x-adminlte-select-bs id="managers" name="managers[]" label="Gerentes"
-                                            label-class="text-dark" igroup-size="md" :config="$config" multiple
-                                            class="border">
-                                            @foreach ($managers as $manager)
-                                                <option value="{{ $manager->id }}">
-                                                    {{ $manager->name }}
-                                                    ({{ $manager->email }})
-                                                </option>
-                                            @endforeach
-                                        </x-adminlte-select-bs>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="col-12 form-group px-0">
-                                        <x-adminlte-select-bs id="collaborators" name="collaborators[]"
-                                            label="Colaboradores" label-class="text-dark" igroup-size="md"
-                                            :config="$config" multiple class="border">
-                                            @foreach ($collaborators as $collaborator)
-                                                <option value="{{ $collaborator->id }}">
-                                                    {{ $collaborator->name }}
-                                                    ({{ $collaborator->email }})
-                                                    : {{ $collaborator->type }}
-                                                </option>
-                                            @endforeach
-                                        </x-adminlte-select-bs>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="col-12 form-group px-0">
-                                        <x-adminlte-select-bs id="financiers" name="financiers[]" label="Financistas"
-                                            label-class="text-dark" igroup-size="md" :config="$config" multiple
-                                            class="border">
-                                            @foreach ($financiers as $financier)
-                                                <option value="{{ $financier->id }}">
-                                                    {{ $financier->name }}
-                                                    ({{ $financier->email }})
-                                                </option>
-                                            @endforeach
-                                        </x-adminlte-select-bs>
                                     </div>
                                 </div>
                             </div>

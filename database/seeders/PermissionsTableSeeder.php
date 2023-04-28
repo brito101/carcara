@@ -107,7 +107,7 @@ class PermissionsTableSeeder extends Seeder
             ],
             /** Settings  18 */
             [
-                'name' => 'Acessar Usuários',
+                'name' => 'Acessar Configurações',
                 'guard_name' => 'web',
                 'created_at' => new DateTime('now')
             ],

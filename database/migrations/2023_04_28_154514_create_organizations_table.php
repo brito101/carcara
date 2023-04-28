@@ -37,9 +37,9 @@ class CreateOrganizationsTable extends Migration
 
         DB::statement("
         CREATE OR REPLACE VIEW `organizations_view` AS
-        SELECT s.id, s.alias_name, s.telephone, s.email, CONCAT(s.city, '-', s.state) as city
-        FROM subsidiaries as s
-        WHERE s.deleted_at IS NULL
+        SELECT o.id, o.alias_name, o.code, o.telephone, o.email, CONCAT(o.city, '-', o.state) as city
+        FROM organizations as o
+        WHERE o.deleted_at IS NULL
         ");
     }
 

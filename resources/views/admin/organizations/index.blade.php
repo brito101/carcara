@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '- Filiais')
+@section('title', '- Organizações')
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
 
@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><i class="fas fa-fw fa-building"></i> Filiais</h1>
+                    <h1><i class="fas fa-fw fa-building"></i> Organizações</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Filiais</li>
+                        <li class="breadcrumb-item active">Organizações</li>
                     </ol>
                 </div>
             </div>
@@ -31,20 +31,20 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex flex-wrap justify-content-between col-12 align-content-center">
-                                <h3 class="card-title align-self-center">Filiais Cadastradas</h3>
-                                @can('Criar Filiais')
-                                    <a href="{{ route('admin.subsidiaries.create') }}" title="Nova Filial"
-                                        class="btn btn-success"><i class="fas fa-fw fa-plus"></i>Nova Filial</a>
+                                <h3 class="card-title align-self-center">Organizações Cadastradas</h3>
+                                @can('Criar Organizações')
+                                    <a href="{{ route('admin.organizations.create') }}" title="Nova Organização"
+                                        class="btn btn-success"><i class="fas fa-fw fa-plus"></i>Nova Organização</a>
                                 @endcan
                             </div>
                         </div>
 
                         @php
-                            $heads = [['label' => 'ID', 'width' => 5], 'Nome', 'Telefone', 'E-mail', 'Cidade', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
+                            $heads = [['label' => 'ID', 'width' => 5], 'Nome', 'Código', 'Telefone', 'E-mail', 'Cidade', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
                             $config = [
                                 'order' => [[1, 'asc']],
-                                'ajax' => url('/admin/subsidiaries'),
-                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'alias_name', 'name' => 'alias_name'], ['data' => 'telephone', 'name' => 'telephone'], ['data' => 'email', 'name' => 'email'], ['data' => 'city', 'name' => 'city'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
+                                'ajax' => url('/admin/organizations'),
+                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'alias_name', 'name' => 'alias_name'], ['data' => 'code', 'name' => 'code'], ['data' => 'telephone', 'name' => 'telephone'], ['data' => 'email', 'name' => 'email'], ['data' => 'city', 'name' => 'city'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
                                 'language' => ['url' => asset('vendor/datatables/js/pt-BR.json')],
                                 'autoFill' => true,
                                 'processing' => true,
