@@ -48,8 +48,9 @@ return [
     */
 
     'logo' => env('APP_NAME'),
-    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    // 'logo_img' => 'vendor/adminlte/dist/img/logo.png',
+    'logo_img' => 'img/logo-transparent.png',
+    'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => env('APP_NAME'),
@@ -90,7 +91,7 @@ return [
     'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => true,
-    'layout_dark_mode' => null,
+    'layout_dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -104,12 +105,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
+    'classes_auth_card' => 'card-outline card-yellow',
     'classes_auth_header' => '',
-    'classes_auth_body' => '',
+    'classes_auth_body' => 'bg-warning',
     'classes_auth_footer' => '',
     'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_btn' => 'btn-flat btn-dark',
 
     /*
     |--------------------------------------------------------------------------
@@ -194,8 +195,10 @@ return [
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => false, //'register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
+    'password_reset_url' => false,
+    // 'password_reset_url' => 'password/reset',
+    'password_email_url' => false,
+    // 'password_email_url' => 'password/email',
     'profile_url' => false,
 
     /*

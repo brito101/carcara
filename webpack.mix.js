@@ -1,5 +1,5 @@
 const mix = require("laravel-mix");
-require('laravel-mix-purgecss');
+require("laravel-mix-purgecss");
 
 /*
  |--------------------------------------------------------------------------
@@ -15,10 +15,12 @@ require('laravel-mix-purgecss');
 mix.js("resources/js/app.js", "public/js")
     .copy("resources/img", "public/img")
     .sass("resources/sass/app.scss", "public/css")
+    .sass("resources/sass/login.scss", "public/css")
     /** Admin */
     .scripts(["resources/js/company.js"], "public/js/company.js")
     .scripts(["resources/js/address.js"], "public/js/address.js")
     .scripts(["resources/js/phone.js"], "public/js/phone.js")
+    .scripts(["resources/js/snow.js"], "public/js/snow.js")
     .options({
         processCssUrls: false,
     })

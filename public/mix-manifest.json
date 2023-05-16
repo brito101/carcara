@@ -1,8 +1,14 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/css/login.css": "/css/login.css",
+    "/img/brand-transparent.png": "/img/brand-transparent.png",
+    "/img/brand.png": "/img/brand.png",
     "/img/favicon.svg": "/img/favicon.svg",
+    "/img/logo-transparent.png": "/img/logo-transparent.png",
+    "/img/logo.png": "/img/logo.png",
     "/js/company.js": "/js/company.js",
     "/js/address.js": "/js/address.js",
-    "/js/phone.js": "/js/phone.js"
+    "/js/phone.js": "/js/phone.js",
+    "/js/snow.js": "/js/snow.js"
 }
