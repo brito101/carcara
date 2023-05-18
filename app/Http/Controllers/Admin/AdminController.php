@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Views\Organization as ViewsOrganization;
 use App\Models\Views\User as ViewsUser;
 use App\Models\Views\Visit;
 use Illuminate\Http\Request;
@@ -12,7 +13,10 @@ class AdminController extends Controller
 {
     public function index()
     {
+        $organizations = ViewsOrganization::count();
         $administrators = ViewsUser::where('type', 'Administrador')->count();
+        $coordinators = ViewsUser::where('type', 'Coordenador')->count();
+        $warriors = ViewsUser::where('type', 'Guerreiro')->count();
 
         /** Statistics */
         $statistics = $this->accessStatistics();
@@ -22,7 +26,10 @@ class AdminController extends Controller
         $chart = $statistics['chart'];
 
         return view('admin.home.index', compact(
+            'organizations',
             'administrators',
+            'coordinators',
+            'warriors',
             'onlineUsers',
             'percent',
             'access',
