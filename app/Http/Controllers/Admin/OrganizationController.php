@@ -50,7 +50,8 @@ class OrganizationController extends Controller
     public function create()
     {
         CheckPermission::checkAuth('Criar Organizações');
-        return view('admin.organizations.create');
+        $organizations = Organization::select('id', 'alias_name')->orderBy('alias_name')->get();
+        return view('admin.organizations.create', compact('organizations'));
     }
 
     /**
@@ -105,7 +106,9 @@ class OrganizationController extends Controller
             abort(403, 'Acesso não autorizado');
         }
 
-        return view('admin.organizations.edit', compact('organization'));
+        $organizations = Organization::select('id', 'alias_name')->where('id', '!=', $organization->id)->orderBy('alias_name')->get();
+
+        return view('admin.organizations.edit', compact('organization', 'organizations'));
     }
 
     /**

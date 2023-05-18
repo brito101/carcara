@@ -130,9 +130,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-gray elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-dark navbar-dark',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -285,7 +285,7 @@ return [
                         ],
                         [
                             'text' => 'Cadastro de Organização',
-                            'url'  => 'admin/organization/create',
+                            'url'  => 'admin/organizations/create',
                             'icon' => 'fas fa-fw fa-chevron-right',
                             'can'  => 'Criar Organizações',
                         ],

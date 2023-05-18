@@ -15,6 +15,6 @@ class Organization extends Model
     protected $fillable = [
         'social_name', 'alias_name', 'code',
         'email', 'telephone', 'cell', 'zipcode', 'street', 'number', 'complement',
-        'neighborhood', 'state', 'city'
+        'neighborhood', 'state', 'city', 'organization_id'
     ];
 }

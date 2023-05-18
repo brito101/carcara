@@ -37,6 +37,7 @@ class OrganizationRequest extends FormRequest
             'neighborhood' => 'max:100',
             'state' => 'required|min:2|max:3',
             'city' => 'required|min:2|max:100',
+            'organization_id' => 'nullable|exists:organizations,id'
         ];
     }
 }

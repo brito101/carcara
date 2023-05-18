@@ -1,4 +1,5 @@
 @extends('adminlte::page')
+@section('plugins.select2', true)
 
 @section('title', '- Cadastro de Organização')
 
@@ -124,6 +125,17 @@
                                         <label for="state">Estado</label>
                                         <input type="text" class="form-control" id="state" placeholder="UF"
                                             name="state" value="{{ old('state') }}" required>
+                                    </div>
+                                    <div class="col-12 col-md-6 form-group pl-0 pl-md-2">
+                                        <label for="state">Subordinado à organização</label>
+                                        <x-adminlte-select2 name="organization_id">
+                                            <option value="">Nenhuma</option>
+                                            @foreach ($organizations as $organization)
+                                                <option {{ old('organization_id') == $organization->id ? 'selected' : '' }}
+                                                    value="{{ $organization->id }}">{{ $organization->alias_name }}
+                                                </option>
+                                            @endforeach
+                                        </x-adminlte-select2>
                                     </div>
                                 </div>
                             </div>

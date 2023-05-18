@@ -50,6 +50,18 @@
                                             placeholder="Nome Completo" name="name"
                                             value="{{ old('name') ?? $user->name }}" required>
                                     </div>
+                                    <div class="col-12 col-md-6 form-group pl-0 pl-md-2">
+                                        <label for="state">Organização</label>
+                                        <x-adminlte-select2 name="organization_id">
+                                            <option value="">Nenhuma</option>
+                                            @foreach ($organizations as $org)
+                                                <option
+                                                    {{ old('organization_id') == $org->id ? 'selected' : ($user->organization_id == $org->id ? 'selected' : '') }}
+                                                    value="{{ $org->id }}">{{ $org->alias_name }}
+                                                </option>
+                                            @endforeach
+                                        </x-adminlte-select2>
+                                    </div>
                                 </div>
 
                                 <div class="d-flex flex-wrap justify-content-between">

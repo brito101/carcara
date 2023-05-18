@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
+use App\Models\Organization;
 use App\Models\User;
+use App\Models\Views\Organization as ViewsOrganization;
 use App\Models\Views\User as ViewsUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,9 +29,9 @@ class UserController extends Controller
         CheckPermission::checkAuth('Listar Usuários');
 
         if (Auth::user()->hasRole('Programador')) {
-            $users = ViewsUser::all('id', 'name', 'email', 'type');
+            $users = ViewsUser::all('id', 'name', 'email', 'type', 'subordination');
         } elseif (Auth::user()->hasRole('Administrador')) {
-            $users = ViewsUser::whereIn('type', ['Administrador', 'Usuário'])->get();
+            $users = ViewsUser::select('id', 'name', 'email', 'type', 'subordination')->whereIn('type', ['Administrador', 'Usuário'])->get();
         } else {
             $users = null;
         }
@@ -65,7 +67,10 @@ class UserController extends Controller
         } else {
             $roles = Role::where('name', '!=', 'Programador')->get(['id', 'name']);
         }
-        return view('admin.users.create', compact('roles'));
+
+        $organizations = ViewsOrganization::select('id', 'alias_name')->orderBy('alias_name')->get();
+
+        return view('admin.users.create', compact('roles', 'organizations'));
     }
 
     /**
@@ -159,7 +164,9 @@ class UserController extends Controller
             $roles = Role::where('name', '!=', 'Programador')->get(['id', 'name']);
         }
 
-        return view('admin.users.edit', compact('user', 'roles'));
+        $organizations = ViewsOrganization::select('id', 'alias_name')->orderBy('alias_name')->get();
+
+        return view('admin.users.edit', compact('user', 'roles', 'organizations'));
     }
 
     /**

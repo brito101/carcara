@@ -47,6 +47,17 @@
                                         <input type="text" class="form-control" id="name"
                                             placeholder="Nome Completo" name="name" value="{{ old('name') }}" required>
                                     </div>
+                                    <div class="col-12 col-md-6 form-group pl-0 pl-md-2">
+                                        <label for="state">Organização</label>
+                                        <x-adminlte-select2 name="organization_id">
+                                            <option value="">Nenhuma</option>
+                                            @foreach ($organizations as $organization)
+                                                <option {{ old('organization_id') == $organization->id ? 'selected' : '' }}
+                                                    value="{{ $organization->id }}">{{ $organization->alias_name }}
+                                                </option>
+                                            @endforeach
+                                        </x-adminlte-select2>
+                                    </div>
                                 </div>
 
                                 <div class="d-flex flex-wrap justify-content-between">

@@ -40,11 +40,11 @@
                         </div>
 
                         @php
-                            $heads = [['label' => 'ID', 'width' => 5], 'Nome', 'Código', 'Telefone', 'E-mail', 'Cidade', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
+                            $heads = [['label' => 'ID', 'width' => 5], 'Nome', 'Código', 'Telefone', 'E-mail', 'Cidade', 'Subordinação', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
                             $config = [
                                 'order' => [[1, 'asc']],
                                 'ajax' => url('/admin/organizations'),
-                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'alias_name', 'name' => 'alias_name'], ['data' => 'code', 'name' => 'code'], ['data' => 'telephone', 'name' => 'telephone'], ['data' => 'email', 'name' => 'email'], ['data' => 'city', 'name' => 'city'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
+                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'alias_name', 'name' => 'alias_name'], ['data' => 'code', 'name' => 'code'], ['data' => 'telephone', 'name' => 'telephone'], ['data' => 'email', 'name' => 'email'], ['data' => 'city', 'name' => 'city'], ['data' => 'subordination', 'name' => 'subordination'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
                                 'language' => ['url' => asset('vendor/datatables/js/pt-BR.json')],
                                 'autoFill' => true,
                                 'processing' => true,

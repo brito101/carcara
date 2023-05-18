@@ -316,6 +316,7 @@ return [
         'tax' => 'imposto',
         'fee' => 'ADM',
         'commercial' => 'comercial',
+        'organization_id' => 'subordinado a organização',
     ],
 
 ];
