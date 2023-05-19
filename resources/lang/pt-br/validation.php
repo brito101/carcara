@@ -317,6 +317,8 @@ return [
         'fee' => 'ADM',
         'commercial' => 'comercial',
         'organization_id' => 'subordinado a organização',
+        'creator' => 'criador',
+        'editor' => 'editor',
     ],
 
 ];

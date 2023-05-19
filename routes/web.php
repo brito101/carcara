@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\OrganizationController;
+use App\Http\Controllers\Admin\ToolController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,9 @@ Route::group(['middleware' => ['auth']], function () {
         /** Users */
         Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
         Route::resource('users', UserController::class);
+
+        /** Tools */
+        Route::resource('tools', ToolController::class);
 
         /**
          * Settings

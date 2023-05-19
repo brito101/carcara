@@ -20,7 +20,7 @@ class OrganizationController extends Controller
      */
     public function index(Request $request)
     {
-        CheckPermission::checkAuth('Listar Configurações');
+        CheckPermission::checkAuth('Acessar Configurações');
         CheckPermission::checkAuth('Listar Organizações');
 
         $organizations = ViewOrganization::get();
@@ -88,7 +88,7 @@ class OrganizationController extends Controller
      */
     public function show($id)
     {
-        CheckPermission::checkAuth('Listar Organizations');
+        CheckPermission::checkAuth('Listar Organizações');
         return redirect()->route('admin.organizations.index');
     }
 
@@ -100,7 +100,7 @@ class OrganizationController extends Controller
      */
     public function edit($id)
     {
-        CheckPermission::checkAuth('Editar Organizations');
+        CheckPermission::checkAuth('Editar Organizações');
         $organization = Organization::find($id);
         if (!$organization) {
             abort(403, 'Acesso não autorizado');
@@ -120,7 +120,7 @@ class OrganizationController extends Controller
      */
     public function update(OrganizationRequest $request, $id)
     {
-        CheckPermission::checkAuth('Editar Organizations');
+        CheckPermission::checkAuth('Editar Organizações');
 
         $data = $request->all();
 

@@ -259,10 +259,30 @@ return [
                     'can'  => 'Listar Usuários',
                 ],
                 [
-                    'text' => 'Cadastro de Usuários',
+                    'text' => 'Cadastro de Usuário',
                     'url'  => 'admin/users/create',
                     'icon' => 'fas fa-fw fa-chevron-right',
                     'can'  => 'Criar Usuários',
+                ],
+            ],
+        ],
+        [
+            'text'        => 'Ferramentas',
+            'url'         => '#',
+            'icon'        => 'fas fa-fw fa-virus',
+            'can'         => 'Acessar Ferramentas',
+            'submenu' => [
+                [
+                    'text' => 'Listagem de Ferramentas',
+                    'url'  => 'admin/tools',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Listar Ferramentas',
+                ],
+                [
+                    'text' => 'Cadastro de Ferramenta',
+                    'url'  => 'admin/tools/create',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Criar Ferramentas',
                 ],
             ],
         ],
