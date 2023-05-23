@@ -25,7 +25,7 @@ class ToolRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:100',
-            'description' => 'nullable|max:65.535',
+            'description' => 'nullable|max:65535',
             'image' => 'image|mimes:jpg,png,jpeg,gif,svg,webp|max:4096|dimensions:max_width=4000,max_height=4000',
             'creator'  => 'nullable|exists:users,id',
             'editor'  => 'nullable|exists:users,id',

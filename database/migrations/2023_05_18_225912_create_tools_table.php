@@ -37,7 +37,7 @@ class CreateToolsTable extends Migration
 
         DB::statement("
         CREATE OR REPLACE VIEW `tools_view` AS
-        SELECT t.id, t.name
+        SELECT t.id, t.name, t.description
         FROM tools as t
         WHERE t.deleted_at IS NULL
         ");

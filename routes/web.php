@@ -33,6 +33,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         /** Tools */
         Route::resource('tools', ToolController::class);
+        Route::delete('/tools/image-delete/{id}', [ToolController::class, 'imageDelete'])->name('tools-image-delete');
+        Route::delete('/tools/file-delete/{id}', [ToolController::class, 'fileDelete'])->name('tools-file-delete');
 
         /**
          * Settings

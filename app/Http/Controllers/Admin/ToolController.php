@@ -4,10 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ToolRequest;
 use App\Models\Tool;
+use App\Models\ToolFile;
+use App\Models\ToolImage;
+use App\Models\ToolObservation;
 use App\Models\Views\Tool as ViewsTool;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use DataTables;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class ToolController extends Controller
 {
@@ -33,7 +42,11 @@ class ToolController extends Controller
                         '<form method="POST" action="tools/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta ferramenta?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('description', function ($row) {
+                    $text = Str::limit($row->description, 100, '...');
+                    return $text;
+                })
+                ->rawColumns(['description', 'action'])
                 ->make(true);
         }
 
@@ -47,7 +60,8 @@ class ToolController extends Controller
      */
     public function create()
     {
-        //
+        CheckPermission::checkAuth('Criar Ferramentas');
+        return view('admin.tools.create');
     }
 
     /**
@@ -56,9 +70,134 @@ class ToolController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ToolRequest $request)
     {
-        //
+        CheckPermission::checkAuth('Criar Ferramentas');
+        $data = $request->all();
+
+        if ($request->observations) {
+            $observations = $request->observations;
+            $dom = new \DOMDocument();
+            $dom->encoding = 'utf-8';
+            $dom->loadHTML(utf8_decode($observations), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOWARNING);
+            $imageFile = $dom->getElementsByTagName('img');
+
+            foreach ($imageFile as $item => $image) {
+                $img = $image->getAttribute('src');
+                if (filter_var($img, FILTER_VALIDATE_URL) == false) {
+                    list($type, $img) = explode(';', $img);
+                    list(, $img) = explode(',', $img);
+                    $imageData = base64_decode($img);
+                    $image_name =  Str::slug($request->title) . '-' . time() . $item . '.png';
+                    $path = storage_path() . '/app/public/observations/' . $image_name;
+                    file_put_contents($path, $imageData);
+                    $image->removeAttribute('src');
+                    $image->removeAttribute('data-filename');
+                    $image->setAttribute('alt', $request->title);
+                    $image->setAttribute('src', url('storage/observations/' . $image_name));
+                }
+            }
+
+            $observations = $dom->saveHTML();
+            $data['observations'] = $observations;
+        }
+
+        $user_id = Auth::user()->id;
+        $data['creator'] = $user_id;
+        $data['editor'] = $user_id;
+
+        if ($request->file('images') != null) {
+            $validator = Validator::make($request->only('images'), ['images.*' => 'image']);
+            if ($validator->fails() === true) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Todas as imagens devem ser do tipo jpg, jpeg ou png.');
+            }
+        }
+
+        if ($request->file('files') != null) {
+            $validator = Validator::make($request->only('files'), ['files.*' => 'file|max:125000']);
+            if ($validator->fails() === true) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Todos os arquivos devem ser pdf com no máximo 1GB total');
+            }
+        }
+
+
+        $tool = Tool::create($data);
+
+        if ($tool->save()) {
+            //Images
+            if ($request->file('images') != null) {
+                foreach ($request->images as $image) {
+                    $toolImage = new ToolImage();
+                    $toolImage->tool_id = $tool->id;
+
+                    $name = time();
+                    $extension = $image->extension();
+                    $nameFile = "{$name}.{$extension}";
+
+                    $destinationPath = storage_path() . '/app/public/tools/photos/';
+
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 755, true);
+                    }
+
+                    $img = Image::make($image);
+                    $img->save($destinationPath . '/' . $nameFile);
+
+                    $toolImage->image = 'tools/photos/' . $nameFile;
+                    $toolImage->name = Str::limit($image->getClientOriginalName(), 100);
+                    $toolImage->user_id = $user_id;
+                    $toolImage->save();
+                    unset($toolImage);
+                }
+            }
+            //files
+            if ($request->file('files') != null) {
+                $files = $request->file('files');
+
+                foreach ($files as $file) {
+                    $toolFile = new ToolFile();
+                    $toolFile->tool_id = $tool->id;
+                    $path = Storage::putFile('tools/files', $file);
+                    $toolFile->file = $path;
+                    $toolFile->name = Str::limit($file->getClientOriginalName(), 100);
+                    $toolFile->user_id = $user_id;
+                    $toolFile->save();
+                    unset($toolFile);
+                }
+            }
+            //observations
+            $observations = [];
+            $oi = 0;
+            foreach ($data as $key => $value) {
+                if (preg_match("/observation_(\d)$/", $key)) {
+                    if (strlen($value) > 0) {
+                        $observations[$oi]['text'] = Str::limit($value, 400000);
+                        $oi++;
+                    }
+                }
+            }
+
+            foreach ($observations as $observation) {
+                $item = new ToolObservation();
+                $item->observation = $observation['text'];
+                $item->user_id = $user_id;
+                $item->tool_id = $tool->id;
+                $item->save();
+            }
+
+            return redirect()
+                ->route('admin.tools.index')
+                ->with('success', 'Cadastro realizado!');
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao cadastrar!');
+        }
     }
 
     /**
@@ -69,7 +208,8 @@ class ToolController extends Controller
      */
     public function show($id)
     {
-        //
+        CheckPermission::checkAuth('Listar Ferramentas');
+        return redirect()->route('admin.tools.index');
     }
 
     /**
@@ -80,7 +220,14 @@ class ToolController extends Controller
      */
     public function edit($id)
     {
-        //
+        CheckPermission::checkAuth('Editar Ferramentas');
+        $tool = Tool::find($id);
+
+        if (!$tool) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        return view('admin.tools.edit', compact('tool'));
     }
 
     /**
@@ -90,9 +237,134 @@ class ToolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ToolRequest $request, $id)
     {
-        //
+        CheckPermission::checkAuth('Editar Ferramentas');
+        $tool = Tool::find($id);
+
+        if (!$tool) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        $data = $request->all();
+        if ($request->observations) {
+            $observations = $request->observations;
+            $dom = new \DOMDocument();
+            $dom->encoding = 'utf-8';
+            $dom->loadHTML(utf8_decode($observations), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOWARNING);
+            $imageFile = $dom->getElementsByTagName('img');
+
+            foreach ($imageFile as $item => $image) {
+                $img = $image->getAttribute('src');
+                if (filter_var($img, FILTER_VALIDATE_URL) == false) {
+                    list($type, $img) = explode(';', $img);
+                    list(, $img) = explode(',', $img);
+                    $imageData = base64_decode($img);
+                    $image_name =  Str::slug($request->title) . '-' . time() . $item . '.png';
+                    $path = storage_path() . '/app/public/observations/' . $image_name;
+                    file_put_contents($path, $imageData);
+                    $image->removeAttribute('src');
+                    $image->removeAttribute('data-filename');
+                    $image->setAttribute('alt', $request->title);
+                    $image->setAttribute('src', url('storage/observations/' . $image_name));
+                }
+            }
+            $observations = $dom->saveHTML();
+            $data['observations'] = $observations;
+        }
+
+        $user_id = Auth::user()->id;
+        $data['editor'] = $user_id;
+
+        if ($request->file('images') != null) {
+            $validator = Validator::make($request->only('images'), ['images.*' => 'image']);
+            if ($validator->fails() === true) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Todas as imagens devem ser do tipo jpg, jpeg ou png.');
+            }
+        }
+
+        if ($request->file('files') != null) {
+            $validator = Validator::make($request->only('files'), ['files.*' => 'file|max:125000']);
+            if ($validator->fails() === true) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Todos os arquivos devem ser pdf com no máximo 1GB total');
+            }
+        }
+
+        if ($tool->update($data)) {
+            //Images
+            if ($request->file('images') != null) {
+                foreach ($request->images as $image) {
+                    $toolImage = new ToolImage();
+                    $toolImage->tool_id = $tool->id;
+
+                    $name = time();
+                    $extension = $image->extension();
+                    $nameFile = "{$name}.{$extension}";
+
+                    $destinationPath = storage_path() . '/app/public/tools/photos/';
+
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 755, true);
+                    }
+
+                    $img = Image::make($image);
+                    $img->save($destinationPath . '/' . $nameFile);
+
+                    $toolImage->image = 'tools/photos/' . $nameFile;
+                    $toolImage->name = Str::limit($image->getClientOriginalName(), 100);
+                    $toolImage->user_id = $user_id;
+                    $toolImage->save();
+                    unset($toolImage);
+                }
+            }
+            //files
+            if ($request->file('files') != null) {
+                $files = $request->file('files');
+
+                foreach ($files as $file) {
+                    $toolFile = new ToolFile();
+                    $toolFile->tool_id = $tool->id;
+                    $path = Storage::putFile('tools/files', $file);
+                    $toolFile->file = $path;
+                    $toolFile->name = Str::limit($file->getClientOriginalName(), 100);
+                    $toolFile->user_id = $user_id;
+                    $toolFile->save();
+                    unset($toolFile);
+                }
+            }
+            //observations
+            $observations = [];
+            $oi = 0;
+            foreach ($data as $key => $value) {
+                if (preg_match("/observation_(\d)$/", $key)) {
+                    if (strlen($value) > 0) {
+                        $observations[$oi]['text'] = Str::limit($value, 400000);
+                        $oi++;
+                    }
+                }
+            }
+
+            foreach ($observations as $observation) {
+                $item = new ToolObservation();
+                $item->observation = $observation['text'];
+                $item->user_id = $user_id;
+                $item->tool_id = $tool->id;
+                $item->save();
+            }
+
+            return redirect()
+                ->route('admin.tools.index')
+                ->with('success', 'Atualização realizada!');
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erro ao atualizar!');
+        }
     }
 
     /**
@@ -103,6 +375,50 @@ class ToolController extends Controller
      */
     public function destroy($id)
     {
-        //
+        CheckPermission::checkAuth('Excluir Ferramentas');
+        $tool = Tool::find($id);
+
+        if (!$tool) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        if ($tool->delete()) {
+            $tool->editor = Auth::user()->id;
+            $tool->update();
+
+            return redirect()
+                ->route('admin.tools.index')
+                ->with('success', 'Exclusão realizada!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Erro ao excluir!');
+        }
+    }
+
+    public function imageDelete(Request $request)
+    {
+        CheckPermission::checkAuth('Editar Ferramentas');
+
+        $image = ToolImage::find($request->id);
+        if ($image) {
+            $image->delete();
+            return response()->json(['message' => 'success']);
+        } else {
+            return response()->json(['message' => 'fail']);
+        }
+    }
+
+    public function fileDelete(Request $request)
+    {
+        CheckPermission::checkAuth('Editar Ferramentas');
+
+        $file = ToolFile::find($request->id);
+        if ($file) {
+            $file->delete();
+            return response()->json(['message' => 'success']);
+        } else {
+            return response()->json(['message' => 'fail']);
+        }
     }
 }

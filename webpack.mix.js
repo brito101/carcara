@@ -21,6 +21,11 @@ mix.js("resources/js/app.js", "public/js")
     .scripts(["resources/js/address.js"], "public/js/address.js")
     .scripts(["resources/js/phone.js"], "public/js/phone.js")
     .scripts(["resources/js/snow.js"], "public/js/snow.js")
+    .scripts(
+        ["resources/js/tools-observations.js"],
+        "public/js/tools-observations.js"
+    )
+    .scripts(["resources/js/tools-files.js"], "public/js/tools-files.js")
     .options({
         processCssUrls: false,
     })
