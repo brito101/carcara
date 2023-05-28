@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ToolRequest extends FormRequest
+class StepRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,10 @@ class ToolRequest extends FormRequest
         return [
             'name' => 'required|min:1|max:100',
             'description' => 'nullable|max:65535',
-            'image' => 'image|mimes:jpg,png,jpeg,gif,svg,webp|max:4096|dimensions:max_width=4000,max_height=4000',
-            'creator'  => 'nullable|exists:users,id',
-            'editor'  => 'nullable|exists:users,id',
+            'color' => [
+                'required',
+                'regex:/^#([a-f0-9]{6}|[a-f0-9]{3})$/i'
+            ]
         ];
     }
 }

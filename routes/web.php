@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\OrganizationController;
+use App\Http\Controllers\Admin\StepController;
 use App\Http\Controllers\Admin\ToolController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\SiteController;
@@ -42,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         /** Organizations */
         Route::resource('organizations', OrganizationController::class);
+        Route::resource('steps', StepController::class);
 
         /**
          * ACL

@@ -311,6 +311,26 @@ return [
                         ],
                     ],
                 ],
+                [
+                    'text'        => 'Fases',
+                    'url'         => '#',
+                    'icon'        => 'fas fa-fw fa-shoe-prints',
+                    'can'         => 'Acessar Fases',
+                    'submenu' => [
+                        [
+                            'text' => 'Listagem de Fases',
+                            'url'  => 'admin/steps',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Listar Fases',
+                        ],
+                        [
+                            'text' => 'Cadastro de Fases',
+                            'url'  => 'admin/steps/create',
+                            'icon' => 'fas fa-fw fa-chevron-right',
+                            'can'  => 'Criar Fases',
+                        ],
+                    ],
+                ],
             ]
 
         ],
@@ -550,6 +570,21 @@ return [
                     'type' => 'css',
                     'asset' => true,
                     'location' => 'vendor/summernote/summernote-bs4.min.css',
+                ],
+            ],
+        ],
+        'BootstrapColorpicker' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css',
                 ],
             ],
         ],

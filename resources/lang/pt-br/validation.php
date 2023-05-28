@@ -319,6 +319,8 @@ return [
         'organization_id' => 'subordinado a organização',
         'creator' => 'criador',
         'editor' => 'editor',
+        'class' => 'classe',
+        'color' => 'cor',
     ],
 
 ];
