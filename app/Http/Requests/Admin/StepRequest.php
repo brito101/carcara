@@ -29,7 +29,8 @@ class StepRequest extends FormRequest
             'color' => [
                 'required',
                 'regex:/^#([a-f0-9]{6}|[a-f0-9]{3})$/i'
-            ]
+            ],
+            'sequence' => 'integer|min:1|max:100',
         ];
     }
 }

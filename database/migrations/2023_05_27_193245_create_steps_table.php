@@ -19,13 +19,14 @@ class CreateStepsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('color')->nullable();
+            $table->integer('sequence');
             $table->softDeletes();
             $table->timestamps();
         });
 
         DB::statement("
         CREATE OR REPLACE VIEW `steps_view` AS
-        SELECT s.id, s.name, s.description, s.color
+        SELECT s.id, s.name, s.description, s.color, s.sequence
         FROM steps as s
         WHERE s.deleted_at IS NULL
         ");

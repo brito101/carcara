@@ -321,6 +321,7 @@ return [
         'editor' => 'editor',
         'class' => 'classe',
         'color' => 'cor',
+        'sequence' => 'sequência',
     ],
 
 ];

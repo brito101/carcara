@@ -71,5 +71,5 @@ Auth::routes([
 ]);
 
 Route::fallback(function () {
-    return view('404');
+    return view('admin.404');
 });

@@ -15,7 +15,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
                         @can('Listar Usuários')
-                            <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Fases</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.steps.index') }}">Fases</a></li>
                         @endcan
                         <li class="breadcrumb-item active">Editar Fase</li>
                     </ol>
@@ -67,16 +67,25 @@
                                     ];
                                 @endphp
 
-                                <div class="col-12 col-md-3 form-group px-0">
-                                    <x-adminlte-input-color name="color" placeholder="Escolha uma cor..."
-                                        value="{{ $step->color }}" label="Cor do cartão" igroup-size="md" :config="$config"
-                                        enable-old-support>
-                                        <x-slot name="appendSlot">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-lg fa-brush"></i>
-                                            </div>
-                                        </x-slot>
-                                    </x-adminlte-input-color>
+                                <div class="d-flex flex-wrap justify-content-start">
+                                    <div class="col-12 col-md-3 form-group px-0 pr-md-2">
+                                        <x-adminlte-input-color name="color" placeholder="Escolha uma cor..."
+                                            value="{{ $step->color }}" label="Cor do cartão" igroup-size="md"
+                                            :config="$config" enable-old-support required>
+                                            <x-slot name="appendSlot">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-lg fa-brush"></i>
+                                                </div>
+                                            </x-slot>
+                                        </x-adminlte-input-color>
+                                    </div>
+
+                                    <div class="col-12 col-md-2 form-group px-0 pl-md-2">
+                                        <label for="sequence">Sequência</label>
+                                        <input type="number" min="1" max="100" step="1"
+                                            class="form-control" id="sequence" placeholder="Ordem da fase" name="sequence"
+                                            value="{{ old('sequence') ?? $step->sequence }}" required>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -84,6 +93,16 @@
                             </div>
                         </form>
 
+                    </div>
+
+                    <h4>Fases existentes</h4>
+                    <div class="d-flex flex-wrap justify-content-between">
+                        @foreach ($steps as $item)
+                            <a href="{{ route('admin.steps.edit', ['step' => $item->id]) }}" target="_blank"
+                                title="Editar {{ $item->name }}" class="btn my-2"
+                                style="background-color: {{ $item->color }}">#{{ $item->sequence }}:
+                                {{ $item->name }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>

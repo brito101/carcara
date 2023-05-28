@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 @section('plugins.Summernote', true)
 @section('plugins.BsCustomFileInput', true)
+@section('plugins.BootstrapSelect', true)
 
 @section('title', '- Cadastro de Ferramenta')
 
@@ -39,10 +40,38 @@
                             @csrf
                             <div class="card-body">
                                 <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="col-12 form-group px-0">
+                                    <div class="col-12 col-md-6 form-group px-0 pr-md-2">
                                         <label for="name">Nome da Ferramenta</label>
                                         <input type="text" class="form-control" id="name" placeholder="Nome"
                                             name="name" value="{{ old('name') }}" required>
+                                    </div>
+
+                                    @php
+                                        $config = [
+                                            'title' => 'Selecione múltiplas opções',
+                                            'showTick' => true,
+                                            'actionsBox' => true,
+                                        ];
+                                    @endphp
+                                    <div class="col-12 col-md-6 form-group px-0 pl-md-2 mb-0">
+                                        <x-adminlte-select-bs id="relatedSteps" name="relatedSteps[]"
+                                            label="Fases Relacionadas" igroup-size="md" :config="$config" multiple>
+                                            @foreach ($steps as $step)
+                                                <option value="{{ $step->id }}">{{ $step->name }}</option>
+                                            @endforeach
+                                        </x-adminlte-select-bs>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 form-group px-0" id="tags">
+                                    <label for="tags">Tags</label>
+                                    <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-start"
+                                        id="container_observation_${item}">
+                                        <div class="col-12 px-0">
+                                            <textarea type="text" class="form-control" id="tags"
+                                                placeholder="Palavras chaves separadas por vírgula para busca e pesquisa da ferramenta" name="tags"
+                                                value="{{ old('tags') }}"></textarea>
+                                        </div>
                                     </div>
                                 </div>
 

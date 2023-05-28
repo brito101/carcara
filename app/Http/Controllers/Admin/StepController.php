@@ -58,7 +58,10 @@ class StepController extends Controller
     public function create()
     {
         CheckPermission::checkAuth('Criar Fases');
-        return view('admin.steps.create');
+
+        $steps = Step::orderBy('sequence')->get();
+
+        return view('admin.steps.create', compact('steps'));
     }
 
     /**
@@ -71,10 +74,15 @@ class StepController extends Controller
     {
         CheckPermission::checkAuth('Criar Fases');
 
-
         $step = Step::create($request->all());
 
         if ($step->save()) {
+            $steps = Step::orderBy('sequence')->get();
+            foreach ($steps as $key => $item) {
+                $item->sequence = (int)$key + 1;
+                $item->save();
+            }
+
             return redirect()
                 ->route('admin.steps.index')
                 ->with('success', 'Cadastro realizado!');
@@ -106,7 +114,7 @@ class StepController extends Controller
      */
     public function edit($id)
     {
-        CheckPermission::checkAuth('Editae Fases');
+        CheckPermission::checkAuth('Editar Fases');
 
         $step = Step::find($id);
 
@@ -114,7 +122,9 @@ class StepController extends Controller
             abort(403, 'Acesso não autorizado');
         }
 
-        return view('admin.steps.edit', compact('step'));
+        $steps = Step::orderBy('sequence')->get();
+
+        return view('admin.steps.edit', compact('step', 'steps'));
     }
 
     /**
@@ -126,7 +136,7 @@ class StepController extends Controller
      */
     public function update(StepRequest $request, $id)
     {
-        CheckPermission::checkAuth('Editae Fases');
+        CheckPermission::checkAuth('Editar Fases');
 
         $step = Step::find($id);
 
@@ -135,6 +145,13 @@ class StepController extends Controller
         }
 
         if ($step->update($request->all())) {
+
+            $steps = Step::orderBy('sequence')->get();
+            foreach ($steps as $key => $item) {
+                $item->sequence = (int)$key + 1;
+                $item->save();
+            }
+
             return redirect()
                 ->route('admin.steps.index')
                 ->with('success', 'Atualização realizada!');
@@ -163,6 +180,13 @@ class StepController extends Controller
         }
 
         if ($step->delete()) {
+
+            $steps = Step::orderBy('sequence')->get();
+            foreach ($steps as $key => $item) {
+                $item->sequence = (int)$key + 1;
+                $item->save();
+            }
+
             return redirect()
                 ->route('admin.steps.index')
                 ->with('success', 'Exclusão realizada!');

@@ -40,15 +40,16 @@
                         </div>
 
                         @php
-                            $heads = [['label' => 'ID', 'width' => 10], 'Nome', 'Descrição', 'Cor', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
+                            $heads = [['label' => 'ID', 'width' => 10], 'Nome', 'Descrição', 'Sequência', 'Cor', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
                             $config = [
                                 'ajax' => url('/admin/steps'),
-                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'name', 'name' => 'name'], ['data' => 'description', 'name' => 'description'], ['data' => 'color', 'name' => 'color'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
+                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'name', 'name' => 'name'], ['data' => 'description', 'name' => 'description'], ['data' => 'sequence', 'name' => 'sequence'], ['data' => 'color', 'name' => 'color'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
                                 'language' => ['url' => asset('vendor/datatables/js/pt-BR.json')],
                                 'autoFill' => true,
                                 'processing' => true,
                                 'serverSide' => true,
                                 'responsive' => true,
+                                'order' => [3, 'asc'],
                                 'dom' => '<"d-flex flex-wrap col-12 justify-content-between"Bf>rtip',
                                 'buttons' => [
                                     ['extend' => 'pageLength', 'className' => 'btn-default'],

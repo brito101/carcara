@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Step extends Model
+class ToolTag extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'description', 'color', 'sequence'
+        'text', 'tool_id', 'user_id',
     ];
 }

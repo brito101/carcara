@@ -32,6 +32,16 @@ class Tool extends Model
         return $this->hasMany(ToolFile::class);
     }
 
+    public function relatedSteps()
+    {
+        return $this->hasMany(RelatedStep::class);
+    }
+
+    public function tags()
+    {
+        return $this->hasMany(ToolTag::class);
+    }
+
     /** Cascade actions */
     public static function boot()
     {
@@ -41,6 +51,8 @@ class Tool extends Model
             $tool->observations()->delete();
             $tool->images()->delete();
             $tool->files()->delete();
+            $tool->relatedSteps()->delete();
+            $tool->tags()->delete();
         });
     }
 }

@@ -40,11 +40,11 @@
                         </div>
 
                         @php
-                            $heads = [['label' => 'ID', 'width' => 5], 'Nome', 'Descrição', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
+                            $heads = [['label' => 'ID', 'width' => 5], 'Nome', 'Descrição', 'Tags', ['label' => 'Ações', 'no-export' => true, 'width' => 10]];
                             $config = [
                                 'order' => [[1, 'asc']],
                                 'ajax' => url('/admin/tools'),
-                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'name', 'name' => 'name'], ['data' => 'description', 'name' => 'description'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
+                                'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'name', 'name' => 'name'], ['data' => 'description', 'name' => 'description'], ['data' => 'tags', 'name' => 'tags'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],
                                 'language' => ['url' => asset('vendor/datatables/js/pt-BR.json')],
                                 'autoFill' => true,
                                 'processing' => true,

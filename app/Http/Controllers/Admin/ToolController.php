@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\CheckPermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ToolRequest;
+use App\Models\RelatedStep;
+use App\Models\Step;
 use App\Models\Tool;
 use App\Models\ToolFile;
 use App\Models\ToolImage;
 use App\Models\ToolObservation;
+use App\Models\ToolTag;
+use App\Models\Views\Step as ViewsStep;
 use App\Models\Views\Tool as ViewsTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -61,7 +65,10 @@ class ToolController extends Controller
     public function create()
     {
         CheckPermission::checkAuth('Criar Ferramentas');
-        return view('admin.tools.create');
+
+        $steps = ViewsStep::select('id', 'name', 'sequence')->orderBy('sequence')->get();
+
+        return view('admin.tools.create', compact('steps'));
     }
 
     /**
@@ -189,6 +196,28 @@ class ToolController extends Controller
                 $item->save();
             }
 
+            //related steps
+            if ($request->relatedSteps) {
+                foreach ($request->relatedSteps as $item) {
+                    RelatedStep::create([
+                        'tool_id' => $tool->id,
+                        'step_id' => $item,
+                    ]);
+                }
+            }
+
+            //tags
+            if ($request->tags) {
+                $tags = explode(", ", $request->tags);
+                foreach ($tags as $tag) {
+                    ToolTag::create([
+                        'tool_id' => $tool->id,
+                        'text' => $tag,
+                        'user_id' => $user_id
+                    ]);
+                }
+            }
+
             return redirect()
                 ->route('admin.tools.index')
                 ->with('success', 'Cadastro realizado!');
@@ -227,7 +256,9 @@ class ToolController extends Controller
             abort(403, 'Acesso não autorizado');
         }
 
-        return view('admin.tools.edit', compact('tool'));
+        $steps = ViewsStep::select('id', 'name', 'sequence')->orderBy('sequence')->get();
+
+        return view('admin.tools.edit', compact('tool', 'steps'));
     }
 
     /**
@@ -354,6 +385,34 @@ class ToolController extends Controller
                 $item->user_id = $user_id;
                 $item->tool_id = $tool->id;
                 $item->save();
+            }
+
+            //related steps
+            if ($request->relatedSteps) {
+                RelatedStep::where('tool_id', $tool->id)->delete();
+                foreach ($request->relatedSteps as $item) {
+                    RelatedStep::create([
+                        'tool_id' => $tool->id,
+                        'step_id' => $item,
+                    ]);
+                }
+            } else {
+                RelatedStep::where('tool_id', $tool->id)->delete();
+            }
+
+            //tags
+            if ($request->tags) {
+                ToolTag::where('tool_id', $tool->id)->delete();
+                $tags = explode(", ", $request->tags);
+                foreach ($tags as $tag) {
+                    ToolTag::create([
+                        'tool_id' => $tool->id,
+                        'text' => $tag,
+                        'user_id' => $user_id
+                    ]);
+                }
+            } else {
+                ToolTag::where('tool_id', $tool->id)->delete();
             }
 
             return redirect()
