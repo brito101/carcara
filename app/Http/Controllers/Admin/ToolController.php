@@ -31,7 +31,7 @@ class ToolController extends Controller
      */
     public function index(Request $request)
     {
-        CheckPermission::checkAuth('Acessar Ferramentas');
+        CheckPermission::checkAuth('Listar Ferramentas');
 
         $tools = ViewsTool::get();
 
@@ -96,7 +96,13 @@ class ToolController extends Controller
                     list(, $img) = explode(',', $img);
                     $imageData = base64_decode($img);
                     $image_name =  Str::slug($request->title) . '-' . time() . $item . '.png';
-                    $path = storage_path() . '/app/public/observations/' . $image_name;
+
+                    $destinationPath = storage_path() . '/app/public/observations';
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 755, true);
+                    }
+
+                    $path = $destinationPath . '/' . $image_name;
                     file_put_contents($path, $imageData);
                     $image->removeAttribute('src');
                     $image->removeAttribute('data-filename');
@@ -292,7 +298,14 @@ class ToolController extends Controller
                     list(, $img) = explode(',', $img);
                     $imageData = base64_decode($img);
                     $image_name =  Str::slug($request->title) . '-' . time() . $item . '.png';
-                    $path = storage_path() . '/app/public/observations/' . $image_name;
+
+                    $destinationPath = storage_path() . '/app/public/observations';
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 755, true);
+                    }
+
+                    $path = $destinationPath . '/' . $image_name;
+
                     file_put_contents($path, $imageData);
                     $image->removeAttribute('src');
                     $image->removeAttribute('data-filename');

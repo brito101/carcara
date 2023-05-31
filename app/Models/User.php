@@ -51,4 +51,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /** Relationships */
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class)->withDefault(
+            ['alias_name' => null]
+        );
+    }
 }

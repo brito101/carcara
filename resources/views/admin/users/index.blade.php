@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1><i class="fas fa-fw fa-users"></i> Usuários</h1>
+                    <h1><i class="fas fa-fw fa-user"></i> Usuários</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -49,6 +49,7 @@
                                 'processing' => true,
                                 'serverSide' => true,
                                 'responsive' => true,
+                                'order' => [0, 'desc'],
                                 'dom' => '<"d-flex flex-wrap col-12 justify-content-between"Bf>rtip',
                                 'buttons' => [
                                     ['extend' => 'pageLength', 'className' => 'btn-default'],

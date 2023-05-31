@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OperationController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\StepController;
+use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\ToolController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Site\SiteController;
@@ -36,6 +38,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('tools', ToolController::class);
         Route::delete('/tools/image-delete/{id}', [ToolController::class, 'imageDelete'])->name('tools-image-delete');
         Route::delete('/tools/file-delete/{id}', [ToolController::class, 'fileDelete'])->name('tools-file-delete');
+
+        /** Teams */
+        Route::resource('teams', TeamController::class);
+
+        /** Operations */
+        Route::get('/operations/timeline/{id}', [OperationController::class, 'timeline']);
+        Route::resource('operations', OperationController::class);
+        Route::delete('/operations/file-delete/{id}', [OperationController::class, 'fileDelete'])->name('operations-file-delete');
 
         /**
          * Settings

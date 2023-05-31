@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/login.css": "/css/login.css",
+    "/img/404-error.png": "/img/404-error.png",
     "/img/brand-transparent.png": "/img/brand-transparent.png",
     "/img/brand.png": "/img/brand.png",
     "/img/favicon.svg": "/img/favicon.svg",
@@ -12,5 +13,6 @@
     "/js/phone.js": "/js/phone.js",
     "/js/snow.js": "/js/snow.js",
     "/js/tools-observations.js": "/js/tools-observations.js",
-    "/js/tools-files.js": "/js/tools-files.js"
+    "/js/tools-files.js": "/js/tools-files.js",
+    "/js/operations-files.js": "/js/operations-files.js"
 }

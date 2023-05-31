@@ -322,6 +322,17 @@ return [
         'class' => 'classe',
         'color' => 'cor',
         'sequence' => 'sequência',
+        'capacity' => 'capacidade',
+        'reference' => 'referência',
+        'spindle' => 'fuso horário',
+        'situation' => 'situação',
+        'mission' => 'missão',
+        'classification' => 'classificação',
+        'step_id' => 'fase',
+        'execution' => 'execução',
+        'instructions' => 'instruções',
+        'logistics' => 'logística',
+        'file' => 'arquivo',
     ],
 
 ];

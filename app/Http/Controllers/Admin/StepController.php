@@ -20,15 +20,15 @@ class StepController extends Controller
      */
     public function index(Request $request)
     {
-        CheckPermission::checkAuth('Acessar Fases');
+        CheckPermission::checkAuth('Listar Fases');
 
-        $step = ViewsStep::get();
+        $steps = ViewsStep::get();
 
         if ($request->ajax()) {
 
             $token = csrf_token();
 
-            return Datatables::of($step)
+            return Datatables::of($steps)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) use ($token) {
                     $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="steps/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' .

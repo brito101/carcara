@@ -26,6 +26,10 @@ mix.js("resources/js/app.js", "public/js")
         "public/js/tools-observations.js"
     )
     .scripts(["resources/js/tools-files.js"], "public/js/tools-files.js")
+    .scripts(
+        ["resources/js/operations-files.js"],
+        "public/js/operations-files.js"
+    )
     .options({
         processCssUrls: false,
     })

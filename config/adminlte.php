@@ -249,7 +249,7 @@ return [
         [
             'text'        => 'Usuários',
             'url'         => '#',
-            'icon'        => 'fas fa-fw fa-users',
+            'icon'        => 'fas fa-fw fa-user',
             'can'         => 'Acessar Usuários',
             'submenu' => [
                 [
@@ -263,6 +263,46 @@ return [
                     'url'  => 'admin/users/create',
                     'icon' => 'fas fa-fw fa-chevron-right',
                     'can'  => 'Criar Usuários',
+                ],
+            ],
+        ],
+        [
+            'text'        => 'Equipes',
+            'url'         => '#',
+            'icon'        => 'fas fa-fw fa-users',
+            'can'         => 'Acessar Equipes',
+            'submenu' => [
+                [
+                    'text' => 'Listagem de Equipes',
+                    'url'  => 'admin/teams',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Listar Equipes',
+                ],
+                [
+                    'text' => 'Cadastro de Equipe',
+                    'url'  => 'admin/teams/create',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Criar Equipes',
+                ],
+            ],
+        ],
+        [
+            'text'        => 'Operações',
+            'url'         => '#',
+            'icon'        => 'fas fa-fw fa-bullseye',
+            'can'         => 'Acessar Operações',
+            'submenu' => [
+                [
+                    'text' => 'Listagem de Operações',
+                    'url'  => 'admin/operations',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Listar Operações',
+                ],
+                [
+                    'text' => 'Cadastro de Operação',
+                    'url'  => 'admin/operations/create',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Criar Operações',
                 ],
             ],
         ],
