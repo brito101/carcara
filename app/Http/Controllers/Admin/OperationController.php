@@ -350,6 +350,10 @@ class OperationController extends Controller
             $operation = Operation::whereIn('id', $operationTeams)->where('id', $id)->first();
         }
 
+        if (!$operation) {
+            abort(403, 'Acesso não autorizado');
+        }
+
         $histories = OperationHistory::where('operation_id', $id)->get();
         return view('admin.operations.show', compact('operation', 'histories'));
     }

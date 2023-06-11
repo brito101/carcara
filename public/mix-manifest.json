@@ -14,5 +14,6 @@
     "/js/snow.js": "/js/snow.js",
     "/js/tools-observations.js": "/js/tools-observations.js",
     "/js/tools-files.js": "/js/tools-files.js",
-    "/js/operations-files.js": "/js/operations-files.js"
+    "/js/operations-files.js": "/js/operations-files.js",
+    "/js/kanban.js": "/js/kanban.js"
 }

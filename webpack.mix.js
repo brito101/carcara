@@ -30,6 +30,7 @@ mix.js("resources/js/app.js", "public/js")
         ["resources/js/operations-files.js"],
         "public/js/operations-files.js"
     )
+    .scripts(["resources/js/kanban.js"], "public/js/kanban.js")
     .options({
         processCssUrls: false,
     })

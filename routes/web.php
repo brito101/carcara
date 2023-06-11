@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\KanbanController;
 use App\Http\Controllers\Admin\OperationController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\StepController;
@@ -43,9 +44,18 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('teams', TeamController::class);
 
         /** Operations */
-        Route::get('/operations/timeline/{id}', [OperationController::class, 'timeline']);
+        Route::get('/operations/timeline/{id}', [OperationController::class, 'timeline'])->name('operations.timeline');
         Route::resource('operations', OperationController::class);
         Route::delete('/operations/file-delete/{id}', [OperationController::class, 'fileDelete'])->name('operations-file-delete');
+
+        /** Kanban */
+        Route::get('/operations/kanban/{id}', [KanbanController::class, 'index'])->name('kanban.index');
+        Route::post('kanban-ajax-update/{id}', [KanbanController::class, 'update'])->name('kanban.update');
+        // Route::post('sales-funnel-search-seller', [KanbanController::class, 'index'])->name('sales-funnel.search-seller');
+        // Route::post('sales-funnel-ajax-update', [SalesFunnelController::class, 'update'])->name('sales-funnel-ajax.update');
+        // Route::delete('sales-funnel-ajax-destroy', [SalesFunnelController::class, 'destroy'])->name('sales-funnel-ajax.destroy');
+
+        // Route::resource('kanban', KanbanController::class);
 
         /**
          * Settings

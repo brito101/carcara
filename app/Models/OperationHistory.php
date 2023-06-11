@@ -44,6 +44,6 @@ class OperationHistory extends Model
     /** Accessors */
     public function getCreatedAtAttribute($value)
     {
-        return date("d/m/Y H:i", strtotime($value));
+        return date("d/m/Y H:i:s", strtotime($value));
     }
 }
