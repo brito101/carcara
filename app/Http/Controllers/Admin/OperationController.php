@@ -48,7 +48,7 @@ class OperationController extends Controller
             return Datatables::of($operations)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) use ($token) {
-                    $btn = '<a class="btn btn-xs btn-dark mx-1 shadow" title="Timeline" href="operations/timeline/' . $row->id . '"><i class="fa fa-lg fa-fw fa-clock"></i></a>' . '<a class="btn btn-xs btn-success mx-1 shadow" title="Visualizar" href="operations/' . $row->id . '"><i class="fa fa-lg fa-fw fa-eye"></i></a>' .
+                    $btn = '<a class="btn btn-xs btn-warning mx-1 shadow" title="Kanban" href="operations/kanban/' . $row->id . '"><i class="fa fa-lg fa-fw fa-square"></i></a>' . '<a class="btn btn-xs btn-dark mx-1 shadow" title="Timeline" href="operations/timeline/' . $row->id . '"><i class="fa fa-lg fa-fw fa-clock"></i></a>' . '<a class="btn btn-xs btn-success mx-1 shadow" title="Visualizar" href="operations/' . $row->id . '"><i class="fa fa-lg fa-fw fa-eye"></i></a>' .
                         (Auth::user()->hasPermissionTo('Editar Operações') ? '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="operations/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' : '') .
                         (Auth::user()->hasPermissionTo('Excluir Operações') ? '<form method="POST" action="operations/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta operação?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>' : '');
                     return $btn;

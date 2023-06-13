@@ -37,6 +37,16 @@ class Tool extends Model
         return $this->hasMany(RelatedStep::class);
     }
 
+    public function relatedStepsName()
+    {
+        $values = [];
+        foreach ($this->relatedSteps as $item) {
+            $values[] = $item->step['name'];
+        }
+
+        return implode(",", $values);
+    }
+
     public function tags()
     {
         return $this->hasMany(ToolTag::class);

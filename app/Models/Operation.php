@@ -34,6 +34,11 @@ class Operation extends Model
         return $this->hasMany(OperationTeam::class);
     }
 
+    public function operationActions()
+    {
+        return $this->hasMany(OperationAction::class)->orderBy('created_at', 'desc');
+    }
+
     /** Cascade actions */
     public static function boot()
     {

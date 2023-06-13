@@ -40,7 +40,7 @@
                         </div>
 
                         @php
-                            $heads = [['label' => 'ID', 'width' => 5], 'Operação', 'Tipo', 'Início', ['label' => 'Início_PTBR', 'no-export' => true], 'Fim', ['label' => 'Fim_PTBR', 'no-export' => true], 'Estado', ['label' => 'Ações', 'no-export' => true, 'width' => 15]];
+                            $heads = [['label' => 'ID', 'width' => 5], 'Operação', 'Tipo', 'Início', ['label' => 'Início_PTBR', 'no-export' => true], 'Fim', ['label' => 'Fim_PTBR', 'no-export' => true], 'Estado', ['label' => 'Ações', 'no-export' => true, 'width' => 20]];
                             $config = [
                                 'ajax' => url('/admin/operations'),
                                 'columns' => [['data' => 'id', 'name' => 'id'], ['data' => 'title', 'name' => 'title'], ['data' => 'type', 'name' => 'type'], ['data' => 'start_pt', 'name' => 'start'], ['data' => 'start_pt', 'name' => 'start_pt', 'visible' => false], ['data' => 'end_pt', 'name' => 'end'], ['data' => 'end_pt', 'name' => 'end_pt', 'visible' => false], ['data' => 'step', 'name' => 'step'], ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]],

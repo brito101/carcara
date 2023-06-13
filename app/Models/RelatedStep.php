@@ -15,4 +15,11 @@ class RelatedStep extends Model
     protected $fillable = [
         'tool_id', 'step_id',
     ];
+
+    /** Relationships */
+
+    public function step()
+    {
+        return $this->belongsTo(Step::class);
+    }
 }

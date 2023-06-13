@@ -109,9 +109,9 @@
                                     <div class="d-flex flex-wrap justify-content-start" id="observation"
                                         data-observation-qtd="{{ $tool->observations->count() - 1 }}">
                                         @foreach ($tool->observations as $item)
-                                            <label for="observation_{{ $loop->index }}">Observações úteis - Autor:
-                                                {{ $item->user->name }} em
-                                                {{ date('d/m/Y H:i', strtotime($item->created_at)) }}</label>
+                                            <label for="observation_{{ $loop->index }}">{{ $loop->index + 1 }} -
+                                                Observações
+                                                úteis</label>
                                             <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-start"
                                                 id="container_observation_{{ $loop->index }}">
                                                 <div class="col-12 px-0">

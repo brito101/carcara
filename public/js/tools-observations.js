@@ -14,6 +14,7 @@ $(document).ready(function () {
             $("#observation").append(html);
         }
         if (action === "close" && item >= 0) {
+            $(`label[for=observation_${item}]`).remove();
             $(`#container_observation_${item}`).remove();
             $(`#observation_${item}`).remove();
             $(`#observation_${item}_date`).remove();

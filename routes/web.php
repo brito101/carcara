@@ -51,11 +51,8 @@ Route::group(['middleware' => ['auth']], function () {
         /** Kanban */
         Route::get('/operations/kanban/{id}', [KanbanController::class, 'index'])->name('kanban.index');
         Route::post('kanban-ajax-update/{id}', [KanbanController::class, 'update'])->name('kanban.update');
-        // Route::post('sales-funnel-search-seller', [KanbanController::class, 'index'])->name('sales-funnel.search-seller');
-        // Route::post('sales-funnel-ajax-update', [SalesFunnelController::class, 'update'])->name('sales-funnel-ajax.update');
-        // Route::delete('sales-funnel-ajax-destroy', [SalesFunnelController::class, 'destroy'])->name('sales-funnel-ajax.destroy');
-
-        // Route::resource('kanban', KanbanController::class);
+        Route::post('/kanban-store-action/{id}', [KanbanController::class, 'storeAction'])->name('kanban.store.action');
+        Route::get('/kanban-update-actions/{id}', [KanbanController::class, 'updateActions'])->name('kanban.update.actions');
 
         /**
          * Settings

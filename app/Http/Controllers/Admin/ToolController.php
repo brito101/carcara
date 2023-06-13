@@ -37,21 +37,36 @@ class ToolController extends Controller
 
         if ($request->ajax()) {
 
-            $token = csrf_token();
+            if ($request->server()['HTTP_REFERER'] == route('admin.tools.index')) {
+                $token = csrf_token();
 
-            return Datatables::of($tools)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) use ($token) {
-                    $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="tools/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' .
-                        '<form method="POST" action="tools/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta ferramenta?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
-                    return $btn;
-                })
-                ->addColumn('description', function ($row) {
-                    $text = Str::limit($row->description, 100, '...');
-                    return $text;
-                })
-                ->rawColumns(['description', 'action'])
-                ->make(true);
+                return Datatables::of($tools)
+                    ->addIndexColumn()
+                    ->addColumn('action', function ($row) use ($token) {
+                        $btn = '<a class="btn btn-xs btn-primary mx-1 shadow" title="Editar" href="tools/' . $row->id . '/edit"><i class="fa fa-lg fa-fw fa-pen"></i></a>' .
+                            '<form method="POST" action="tools/' . $row->id . '" class="btn btn-xs px-0"><input type="hidden" name="_method" value="DELETE"><input type="hidden" name="_token" value="' . $token . '"><button class="btn btn-xs btn-danger mx-1 shadow" title="Excluir" onclick="return confirm(\'Confirma a exclusão desta ferramenta?\')"><i class="fa fa-lg fa-fw fa-trash"></i></button></form>';
+                        return $btn;
+                    })
+                    ->addColumn('description', function ($row) {
+                        $text = Str::limit($row->description, 100, '...');
+                        return $text;
+                    })
+                    ->rawColumns(['description', 'action'])
+                    ->make(true);
+            } else {
+                return Datatables::of($tools)
+                    ->addIndexColumn()
+                    ->addColumn('action', function ($row) {
+                        $btn = '<a target="_blank" class="btn btn-xs btn-success mx-1 shadow" title="Visualizar" href="' . route('admin.tools.show', ['tool' => $row->id]) . '"><i class="fa fa-lg fa-fw fa-eye"></i></a>';
+                        return $btn;
+                    })
+                    ->addColumn('description', function ($row) {
+                        $text = Str::limit($row->description, 100, '...');
+                        return $text;
+                    })
+                    ->rawColumns(['description', 'action'])
+                    ->make(true);
+            }
         }
 
         return view('admin.tools.index');
@@ -243,8 +258,17 @@ class ToolController extends Controller
      */
     public function show($id)
     {
-        CheckPermission::checkAuth('Listar Ferramentas');
-        return redirect()->route('admin.tools.index');
+        CheckPermission::checkAuth('Acessar Ferramentas');
+
+        $tool = Tool::find($id);
+
+        if (!$tool) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        $steps = ViewsStep::select('id', 'name', 'sequence')->orderBy('sequence')->get();
+
+        return view('admin.tools.show', compact('tool', 'steps'));
     }
 
     /**
@@ -391,6 +415,8 @@ class ToolController extends Controller
                     }
                 }
             }
+
+            $tool->observations->each->delete();
 
             foreach ($observations as $observation) {
                 $item = new ToolObservation();
