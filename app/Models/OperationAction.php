@@ -23,7 +23,8 @@ class OperationAction extends Model
         'user_name',
         'user_photo',
         'date',
-        'full_image'
+        'full_image',
+        'delete_action'
     ];
 
     /** Relationships */
@@ -55,5 +56,10 @@ class OperationAction extends Model
         } else {
             return null;
         }
+    }
+
+    public function getDeleteActionAttribute()
+    {
+        return route('admin.kanban.delete.actions', ['id' => $this->id]);
     }
 }

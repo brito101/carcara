@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('kanban-ajax-update/{id}', [KanbanController::class, 'update'])->name('kanban.update');
         Route::post('/kanban-store-action/{id}', [KanbanController::class, 'storeAction'])->name('kanban.store.action');
         Route::get('/kanban-update-actions/{id}', [KanbanController::class, 'updateActions'])->name('kanban.update.actions');
+        Route::delete('/kanban-delete-actions/{id}', [KanbanController::class, 'deleteAction'])->name('kanban.delete.actions');
 
         /**
          * Settings

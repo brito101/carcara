@@ -149,4 +149,20 @@ class KanbanController extends Controller
             return response()->json(['actions' => $operation->operationActions]);
         }
     }
+
+    public function deleteAction($id)
+    {
+
+        $operationAction = OperationAction::find($id);
+
+        if (!$operationAction) {
+            abort(403, 'Acesso não autorizado');
+        }
+
+        if ($operationAction->delete()) {
+            return response()->json(['message' => 'Exclusão realizada com sucesso!']);
+        } else {
+            return response()->json(['message' => 'Falha ao excluir! Por favor tente novamente.']);
+        }
+    }
 }
