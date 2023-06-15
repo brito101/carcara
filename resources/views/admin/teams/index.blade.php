@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '- Fases')
+@section('title', '- Equipes')
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
 
