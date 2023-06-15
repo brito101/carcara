@@ -1,10 +1,6 @@
 # Carcara Project with Laravel 8 + AdminLTE3 + DataTables server side + Spatie ACL
 
-<h5>Resources</h5>
-<p>Basic user controller</p>
-<p>Visitors log</p>
-
-<h5>Usage</h5>
+<h5>Installation</h5>
 <p><code>cp .env.example .env</code></p>
 <p>Edit .env parameters</p>
 

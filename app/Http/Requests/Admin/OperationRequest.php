@@ -42,7 +42,7 @@ class OperationRequest extends FormRequest
             'type' => 'nullable|in:Exploratória,Sistemática',
             'mission' => 'nullable|max:4000000000',
             'start' => 'nullable|date_format:Y-m-d H:i:s',
-            'end' => "nullable|date_format:Y-m-d H:i:s|after_or_equal:$this->start",
+            'end' => $this->start ? "nullable|date_format:Y-m-d H:i:s|after_or_equal:$this->start" : "nullable|date_format:Y-m-d H:i:s",
             'classification' => 'nullable|in:Proteção,Exploração,Ataque',
             'step_id' => 'required|exists:steps,id',
             'execution' => 'nullable|max:4000000000',
