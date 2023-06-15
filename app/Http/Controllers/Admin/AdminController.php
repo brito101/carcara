@@ -43,21 +43,21 @@ class AdminController extends Controller
         $operationsOngoing = ViewsOperation::whereIn('id', $operations->pluck('id'))->where('end', '>=', date('Y-m-d H:i'))->orWhere('end', null)->count();
 
         $operationsStep = $operations->groupBy('step')->toArray();
-        $operationsStepChart = [];
+        $operationsStepChart = ['label', 'data'];
         foreach ($operationsStep as $key => $value) {
             $operationsStepChart['label'][] = Str::of($key)->words(1);
             $operationsStepChart['data'][] = count($value);
         }
 
         $operationsClassification = $operations->groupBy('classification')->toArray();
-        $operationsClassificationChart = [];
+        $operationsClassificationChart = ['label', 'data'];
         foreach ($operationsClassification as $key => $value) {
             $operationsClassificationChart['label'][] = $key;
             $operationsClassificationChart['data'][] = count($value);
         }
 
         $operationsType = $operations->groupBy('type')->toArray();
-        $operationsTypeChart = [];
+        $operationsTypeChart = ['label', 'data'];
         foreach ($operationsType as $key => $value) {
             if ($key == '') {
                 $key = 'Sem Tipo';
