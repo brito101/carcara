@@ -405,12 +405,12 @@ return [
                 ],
             ]
         ],
-        [
-            'text'        => 'Site',
-            'url'    => '/',
-            'icon'    => 'fas fa-fw fa-link',
-            'target' => '_blank',
-        ]
+        // [
+        //     'text'        => 'Site',
+        //     'url'    => '/',
+        //     'icon'    => 'fas fa-fw fa-link',
+        //     'target' => '_blank',
+        // ]
     ],
 
     /*

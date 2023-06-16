@@ -73,7 +73,7 @@ function ajaxCall() {
     });
 }
 
-setInterval(ajaxCall, 10000);
+setInterval(ajaxCall, 5000);
 
 $("#actions").on("click", ".actionTrash", function (e) {
     e.preventDefault();

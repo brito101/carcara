@@ -31,6 +31,8 @@ class User extends Authenticatable
         'telephone',
         'cell',
         'organization_id',
+        'alias',
+        'document_person'
     ];
 
     /**

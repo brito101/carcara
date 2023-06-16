@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <div class="row">
                 @if (Auth::user()->hasRole('Programador|Administrador'))
-                    <div class="col-12 col-sm-6 col-md-2">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-building"></i></span>
                             <div class="info-box-content">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-2">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-2">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-code"></i></span>
                             <div class="info-box-content">
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-2">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-user-shield"></i></span>
                             <div class="info-box-content">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-2">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-user-cog"></i></span>
                             <div class="info-box-content">
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-2">
+                    <div class="col-12 col-md-6 col-lg-2">
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-user-ninja"></i></span>
                             <div class="info-box-content">
@@ -81,7 +81,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-4 col-6">
+                <div class="col-12 col-md-4">
                     <div class="small-box bg-secondary">
                         <div class="inner">
                             <h3>{{ $tools }}</h3>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-12 col-md-4">
                     <div class="small-box bg-dark">
                         <div class="inner">
                             <h3>{{ $operations->count() }}</h3>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6">
+                <div class="col-12 col-md-4">
                     <div class="small-box bg-danger">
                         <div class="inner">
                             <h3>{{ $operationsOngoing }}</h3>
@@ -293,8 +293,8 @@
                                             <div class=""></div>
                                         </div>
                                     </div>
-                                    <canvas id="visitors-chart" style="display: block; width: 489px; height: 100px;"
-                                        class="chartjs-render-monitor" width="489" height="100"></canvas>
+                                    <canvas id="visitors-chart" style="display: block; width: 489px; height: 200px;"
+                                        class="chartjs-render-monitor" width="489" height="200"></canvas>
                                 </div>
                             </div>
                         </div>

@@ -40,7 +40,11 @@ class AdminController extends Controller
             $operations = ViewsOperation::whereIn('id', $operationTeams)->orderBy('id', 'desc')->get();
         }
 
-        $operationsOngoing = ViewsOperation::whereIn('id', $operations->pluck('id'))->where('end', '>=', date('Y-m-d H:i'))->orWhere('end', null)->count();
+        if ($operations->count() > 0) {
+            $operationsOngoing = ViewsOperation::whereIn('id', $operations->pluck('id'))->where('end', '>=', date('Y-m-d H:i'))->orWhere('end', null)->count();
+        } else {
+            $operationsOngoing = 0;
+        }
 
         $operationsStep = $operations->groupBy('step')->toArray();
         $operationsStepChart = ['label' => [], 'data' => []];

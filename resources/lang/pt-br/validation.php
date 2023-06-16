@@ -333,6 +333,8 @@ return [
         'instructions' => 'instruções',
         'logistics' => 'logística',
         'file' => 'arquivo',
+        'alias' => 'nome de guerra/apelido',
+        'document_person' => 'CPF',
     ],
 
 ];
