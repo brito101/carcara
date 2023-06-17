@@ -22,7 +22,7 @@
                         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('admin.operations.index') }}">Operações</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('admin.operations.edit', ['operation' => $operation->id]) }}">Editar
+                                href="{{ route('admin.operations.show', ['operation' => $operation->id]) }}">Visualizar
                                 Operação</a></li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('admin.operations.timeline', ['id' => $operation->id]) }}">Timeline</a>

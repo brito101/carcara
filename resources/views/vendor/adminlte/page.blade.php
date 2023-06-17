@@ -33,6 +33,11 @@
             @include('adminlte::partials.cwrapper.cwrapper-iframe')
         @endempty
 
+        {{-- Chat --}}
+        @if (Request::segment(1) == 'admin')
+            @include('admin.components.chat')
+        @endif
+
         {{-- Footer --}}
         @hasSection('footer')
             @include('adminlte::partials.footer.footer')

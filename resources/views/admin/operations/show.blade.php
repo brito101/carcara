@@ -101,7 +101,7 @@
                             </div>
 
                             <h4 class="h6 font-weight-bold">Fases da Operação</h4>
-                            <div class="d-flex flex-wrap justify-content-start px-0">
+                            <div class="d-flex flex-wrap justify-content-start px-0 mx-n2">
                                 @foreach ($operation->operationSteps as $item)
                                     <div class="p-2">
                                         <span title="{{ $item->step->name }}" class="btn"
@@ -112,54 +112,65 @@
                                 @endforeach
                             </div>
 
-                            <div class="col-12 form-group px-0">
-                                <label for="situation">Situação</label>
-                                <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center" id="situation">
-                                    <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
-                                        {!! $operation->situation !!}
+                            @if ($operation->situation)
+                                <div class="col-12 form-group px-0">
+                                    <label for="situation">Situação</label>
+                                    <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
+                                        id="situation">
+                                        <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
+                                            {!! $operation->situation !!}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
 
-                            <div class="col-12 form-group px-0">
-                                <label for="mission">Missão</label>
-                                <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
-                                    id="situation">
-                                    <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
-                                        {!! $operation->mission !!}
+                            @if ($operation->mission)
+                                <div class="col-12 form-group px-0">
+                                    <label for="mission">Missão</label>
+                                    <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
+                                        id="situation">
+                                        <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
+                                            {!! $operation->mission !!}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
 
-                            <div class="col-12 form-group px-0">
-                                <label for="execution">Execução</label>
-                                <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
-                                    id="situation">
-                                    <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
-                                        {!! $operation->execution !!}
+                            @if ($operation->execution)
+                                <div class="col-12 form-group px-0">
+                                    <label for="execution">Execução</label>
+                                    <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
+                                        id="situation">
+                                        <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
+                                            {!! $operation->execution !!}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
 
-                            <div class="col-12 form-group px-0">
-                                <label for="logistics">Administração e Logísitica</label>
-                                <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
-                                    id="situation">
-                                    <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
-                                        {!! $operation->logistics !!}
+                            @if ($operation->logistics)
+                                <div class="col-12 form-group px-0">
+                                    <label for="logistics">Administração e Logísitica</label>
+                                    <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
+                                        id="situation">
+                                        <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
+                                            {!! $operation->logistics !!}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
 
-                            <div class="col-12 form-group px-0">
-                                <label for="instructions">Comando e Controle</label>
-                                <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
-                                    id="situation">
-                                    <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
-                                        {!! $operation->instructions !!}
+                            @if ($operation->instructions)
+                                <div class="col-12 form-group px-0">
+                                    <label for="instructions">Comando e Controle</label>
+                                    <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
+                                        id="situation">
+                                        <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
+                                            {!! $operation->instructions !!}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
 
                             <div class="d-flex flex-wrap justify-content-between">
 

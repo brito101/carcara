@@ -36,6 +36,7 @@ mix.js("resources/js/app.js", "public/js")
         ["resources/js/document-person.js"],
         "public/js/document-person.js"
     )
+    .scripts(["resources/js/chat.js"], "public/js/chat.js")
     .options({
         processCssUrls: false,
     })

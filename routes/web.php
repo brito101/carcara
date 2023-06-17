@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Chat\MessageController;
 use App\Http\Controllers\Admin\KanbanController;
 use App\Http\Controllers\Admin\OperationController;
 use App\Http\Controllers\Admin\OrganizationController;
@@ -28,6 +29,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin.home');
     Route::prefix('admin')->name('admin.')->group(function () {
+
+        /** Chat */
+        Route::get('chat/read', [MessageController::class, 'read']);
+        Route::get('chat', [MessageController::class, 'index'])->name('chat.index');
+        Route::post('chat', [MessageController::class, 'store'])->name('chat.store');
+
         /** Chart home */
         Route::get('/chart', [AdminController::class, 'chart'])->name('home.chart');
 
