@@ -10,14 +10,14 @@ class CheckPermission
 
     public static function checkAuth(string $auth): void
     {
-        if (!self::roleExist($auth) && !Auth::user()->hasPermissionTo($auth)) {
+        if (self::roleExist($auth) && !Auth::user()->hasPermissionTo($auth)) {
             abort(403, 'Acesso não autorizado');
         }
     }
 
     public static function checkManyAuth(array $auth): void
     {
-        if (!self::roleExist($auth) && !Auth::user()->hasAnyPermission($auth)) {
+        if (self::roleExist($auth) && !Auth::user()->hasAnyPermission($auth)) {
             abort(403, 'Acesso não autorizado');
         }
     }
