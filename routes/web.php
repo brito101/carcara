@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['middleware' => ['log']], function () {
             /** Dashboard */
-            Route::get('/', [AdminController::class, 'index'])->name('admin.home');
+            Route::get('/', [AdminController::class, 'index'])->name('home');
 
             /** Users */
             Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
