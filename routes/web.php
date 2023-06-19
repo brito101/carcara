@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('admin', [AdminController::class, 'index'])->name('admin.home');
+
     Route::prefix('admin')->name('admin.')->group(function () {
 
         /** Chat */
@@ -38,49 +38,54 @@ Route::group(['middleware' => ['auth']], function () {
         /** Chart home */
         Route::get('/chart', [AdminController::class, 'chart'])->name('home.chart');
 
-        /** Users */
-        Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
-        Route::resource('users', UserController::class);
+        Route::group(['middleware' => ['log']], function () {
+            /** Dashboard */
+            Route::get('/', [AdminController::class, 'index'])->name('admin.home');
 
-        /** Tools */
-        Route::resource('tools', ToolController::class);
-        Route::delete('/tools/image-delete/{id}', [ToolController::class, 'imageDelete'])->name('tools-image-delete');
-        Route::delete('/tools/file-delete/{id}', [ToolController::class, 'fileDelete'])->name('tools-file-delete');
+            /** Users */
+            Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+            Route::resource('users', UserController::class);
 
-        /** Teams */
-        Route::resource('teams', TeamController::class);
+            /** Tools */
+            Route::resource('tools', ToolController::class);
+            Route::delete('/tools/image-delete/{id}', [ToolController::class, 'imageDelete'])->name('tools-image-delete');
+            Route::delete('/tools/file-delete/{id}', [ToolController::class, 'fileDelete'])->name('tools-file-delete');
 
-        /** Operations */
-        Route::get('/operations/timeline/{id}', [OperationController::class, 'timeline'])->name('operations.timeline');
-        Route::resource('operations', OperationController::class);
-        Route::delete('/operations/file-delete/{id}', [OperationController::class, 'fileDelete'])->name('operations-file-delete');
+            /** Teams */
+            Route::resource('teams', TeamController::class);
 
-        /** Kanban */
-        Route::get('/operations/kanban/{id}', [KanbanController::class, 'index'])->name('kanban.index');
-        Route::post('kanban-ajax-update/{id}', [KanbanController::class, 'update'])->name('kanban.update');
-        Route::post('/kanban-store-action/{id}', [KanbanController::class, 'storeAction'])->name('kanban.store.action');
-        Route::get('/kanban-update-actions/{id}', [KanbanController::class, 'updateActions'])->name('kanban.update.actions');
-        Route::delete('/kanban-delete-actions/{id}', [KanbanController::class, 'deleteAction'])->name('kanban.delete.actions');
+            /** Operations */
+            Route::get('/operations/timeline/{id}', [OperationController::class, 'timeline'])->name('operations.timeline');
+            Route::resource('operations', OperationController::class);
+            Route::delete('/operations/file-delete/{id}', [OperationController::class, 'fileDelete'])->name('operations-file-delete');
 
-        /**
-         * Settings
-         */
+            /** Kanban */
+            Route::get('/operations/kanban/{id}', [KanbanController::class, 'index'])->name('kanban.index');
+            Route::post('kanban-ajax-update/{id}', [KanbanController::class, 'update'])->name('kanban.update');
+            Route::post('/kanban-store-action/{id}', [KanbanController::class, 'storeAction'])->name('kanban.store.action');
+            Route::get('/kanban-update-actions/{id}', [KanbanController::class, 'updateActions'])->name('kanban.update.actions');
+            Route::delete('/kanban-delete-actions/{id}', [KanbanController::class, 'deleteAction'])->name('kanban.delete.actions');
 
-        /** Organizations */
-        Route::resource('organizations', OrganizationController::class);
-        Route::resource('steps', StepController::class);
+            /**
+             * Settings
+             */
 
-        /**
-         * ACL
-         */
-        /** Permissions */
-        Route::get('/permission/destroy/{id}', [PermissionController::class, 'destroy']);
-        Route::resource('permission', PermissionController::class);
-        /** Roles */
-        Route::get('/role/destroy/{id}', [RoleController::class, 'destroy']);
-        Route::get('role/{role}/permission', [RoleController::class, 'permissions'])->name('role.permissions');
-        Route::put('role/{role}/permission/sync', [RoleController::class, 'permissionsSync'])->name('role.permissionsSync');
-        Route::resource('role', RoleController::class);
+            /** Organizations */
+            Route::resource('organizations', OrganizationController::class);
+            Route::resource('steps', StepController::class);
+
+            /**
+             * ACL
+             */
+            /** Permissions */
+            Route::get('/permission/destroy/{id}', [PermissionController::class, 'destroy']);
+            Route::resource('permission', PermissionController::class);
+            /** Roles */
+            Route::get('/role/destroy/{id}', [RoleController::class, 'destroy']);
+            Route::get('role/{role}/permission', [RoleController::class, 'permissions'])->name('role.permissions');
+            Route::put('role/{role}/permission/sync', [RoleController::class, 'permissionsSync'])->name('role.permissionsSync');
+            Route::resource('role', RoleController::class);
+        });
     });
 });
 
