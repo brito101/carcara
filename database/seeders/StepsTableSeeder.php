@@ -79,6 +79,13 @@ class StepsTableSeeder extends Seeder
                 'sequence' => 9,
                 'created_at' => new DateTime('now')
             ],
+            [
+                'name'      => 'Documentação e Relatório',
+                'description' => 'Fase da confeccção de documentação para tramitação e arquivamanento caso necessário.',
+                'color'  => '#36cccc',
+                'sequence' => 10,
+                'created_at' => new DateTime('now')
+            ],
         ]);
     }
 }

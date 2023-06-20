@@ -307,6 +307,26 @@ return [
             ],
         ],
         [
+            'text'        => 'Relatórios',
+            'url'         => '#',
+            'icon'        => 'fas fa-fw fa-file',
+            'can'         => 'Acessar Relatórios',
+            'submenu' => [
+                [
+                    'text' => 'Listagem de Relatórios',
+                    'url'  => 'admin/reports',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Listar Relatórios',
+                ],
+                [
+                    'text' => 'Cadastro de Relatório',
+                    'url'  => 'admin/reports/create',
+                    'icon' => 'fas fa-fw fa-chevron-right',
+                    'can'  => 'Criar Relatórios',
+                ],
+            ],
+        ],
+        [
             'text'        => 'Ferramentas',
             'url'         => '#',
             'icon'        => 'fas fa-fw fa-virus',

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Chat\MessageController;
 use App\Http\Controllers\Admin\KanbanController;
 use App\Http\Controllers\Admin\OperationController;
 use App\Http\Controllers\Admin\OrganizationController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\StepController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\ToolController;
@@ -62,6 +63,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/kanban-store-action/{id}', [KanbanController::class, 'storeAction'])->name('kanban.store.action');
             Route::get('/kanban-update-actions/{id}', [KanbanController::class, 'updateActions'])->name('kanban.update.actions');
             Route::delete('/kanban-delete-actions/{id}', [KanbanController::class, 'deleteAction'])->name('kanban.delete.actions');
+
+            /** Reports */
+            Route::delete('/operations/file-delete/{id}', [ReportController::class, 'fileDelete'])->name('reports-file-delete');
+            Route::resource('reports', ReportController::class);
 
             /**
              * Settings
