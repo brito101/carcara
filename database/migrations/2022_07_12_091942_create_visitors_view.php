@@ -18,6 +18,7 @@ class CreateVisitorsView extends Migration
         CREATE OR REPLACE VIEW `visitors_view` AS
         SELECT v.id, v.url, v.method, v.created_at
         FROM shetabit_visits as v
+        WHERE v.url NOT LIKE \"%columns%\"
         ");
     }
 

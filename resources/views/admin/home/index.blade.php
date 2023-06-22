@@ -293,7 +293,8 @@
                                             <div class=""></div>
                                         </div>
                                     </div>
-                                    <canvas id="visitors-chart" style="display: block; width: 489px; height: 200px;"
+                                    <canvas id="visitors-chart"
+                                        style="display: block; width: 489px; height: 200px; max-height: 450px;"
                                         class="chartjs-render-monitor" width="489" height="200"></canvas>
                                 </div>
                             </div>
