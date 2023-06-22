@@ -28,7 +28,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('admin', [AdminController::class, 'index'])->name('admin.home');
     Route::prefix('admin')->name('admin.')->group(function () {
 
         /** Chat */
@@ -40,6 +39,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/chart', [AdminController::class, 'chart'])->name('home.chart');
 
         Route::group(['middleware' => ['log']], function () {
+            /** Home */
+            Route::get('/', [AdminController::class, 'index'])->name('home');
+
             /** Users */
             Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
             Route::resource('users', UserController::class);
