@@ -123,6 +123,8 @@ class UserController extends Controller
             if (!empty($request->role)) {
                 $user->syncRoles($request->role);
                 $user->save();
+            } else {
+                $user->syncRoles("Guerreiro");
             }
             return redirect()
                 ->route('admin.users.index')
