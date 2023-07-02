@@ -13,6 +13,8 @@
     @stack('css')
     @yield('css')
 @stop
+@section('meta_tags')
+<meta name="description" content="SIOC - Sistema de Informações de Operações Cibernéticas">@stop
 
 @section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
 
