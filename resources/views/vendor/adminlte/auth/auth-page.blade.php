@@ -22,7 +22,7 @@
 
         {{-- Logo --}}
         <div class="{{ $auth_type ?? 'login' }}-logo">
-            <a href="{{ $dashboard_url }}" aria-label="{{ env('APP_NAME') }}">
+            <a href="{{ $dashboard_url }}" aria-label="Sistema de Informações de Operações Cibernéticas - Login">
                 <img src="{{ asset('img/brand-transparent.png') }}" height="120" alt="{{ env('APP_NAME') }}">
             </a>
             <h1 class="h5 text-white">Sistema de Informações de Operações Cibernéticas</h1>
