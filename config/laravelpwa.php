@@ -1,48 +1,48 @@
 <?php
 
 return [
-    'name' => 'SIOC',
+    'name' => 'SIOC PWA',
     'manifest' => [
         'name' => env('APP_NAME', 'SIOC'),
         'short_name' => 'SIOC',
-        'start_url' => '/',
-        'background_color' => '#ffffff',
-        'theme_color' => '#000000',
+        'start_url' => '/login',
+        'background_color' => '#393738',
+        'theme_color' => '#FDC106',
         'display' => 'standalone',
         'orientation' => 'any',
         'status_bar' => 'black',
         'icons' => [
             '72x72' => [
                 'path' => '/images/icons/icon-72x72.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '96x96' => [
                 'path' => '/images/icons/icon-96x96.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '128x128' => [
                 'path' => '/images/icons/icon-128x128.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '144x144' => [
                 'path' => '/images/icons/icon-144x144.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '152x152' => [
                 'path' => '/images/icons/icon-152x152.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '192x192' => [
                 'path' => '/images/icons/icon-192x192.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '384x384' => [
                 'path' => '/images/icons/icon-384x384.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
             '512x512' => [
                 'path' => '/images/icons/icon-512x512.png',
-                'purpose' => 'any'
+                'purpose' => 'any maskable'
             ],
         ],
         'splash' => [
@@ -64,7 +64,7 @@ return [
                 'url' => '/shortcutlink1',
                 'icons' => [
                     "src" => "/images/icons/icon-72x72.png",
-                    "purpose" => "any"
+                    'purpose' => 'any maskable'
                 ]
             ],
             [
@@ -73,6 +73,8 @@ return [
                 'url' => '/shortcutlink2'
             ]
         ],
-        'custom' => []
+        'custom' => [
+            'lang' => 'pt-BR'
+        ]
     ]
 ];
