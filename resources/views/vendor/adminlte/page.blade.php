@@ -56,7 +56,7 @@
                 Cibernética-2023</span></strong>
         {{-- Todos os direitos Reservados. --}}
         <div class="float-right d-none d-sm-inline-block">
-            <b>Versão</b> {{ env('APP_VERSION') }}
+            <b>Versão</b> {{ env('APP_VERSION') ?? '1.0.0' }}
         </div>
     </footer>
 @stop
