@@ -1,5 +1,5 @@
 <!-- Web Application Manifest -->
-{{-- <link rel="manifest" href="{{ route('laravelpwa.manifest') }}"> --}}
+<link rel="manifest" href="{{ route('laravelpwa.manifest') }}">
 <!-- Chrome for Android theme color -->
 <meta name="theme-color" content="{{ $config['theme_color'] }}">
 
@@ -51,17 +51,17 @@
 <meta name="msapplication-TileColor" content="{{ $config['background_color'] }}">
 <meta name="msapplication-TileImage" content="{{ data_get(end($config['icons']), 'src') }}">
 
-{{-- <script type="text/javascript">
+<script type="text/javascript">
     // Initialize the service worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/serviceworker.js', {
             scope: '.'
         }).then(function(registration) {
             // Registration was successful
-            console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
+            console.log('SIOC PWA: ServiceWorker registration successful with scope: ', registration.scope);
         }, function(err) {
             // registration failed :(
-            console.log('Laravel PWA: ServiceWorker registration failed: ', err);
+            console.log('SIOC PWA: ServiceWorker registration failed: ', err);
         });
     }
-</script> --}}
+</script>
