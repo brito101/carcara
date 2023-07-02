@@ -1,4 +1,4 @@
-# Sistema de Informações de Operações Cibernéticas
+# SIOC - Sistema de Informações de Operações Cibernéticas
 
 ## Project with Laravel 8 + AdminLTE3 + DataTables server side + Spatie ACL
 
