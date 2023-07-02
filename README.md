@@ -1,20 +1,18 @@
-# Carcara Project with Laravel 8 + AdminLTE3 + DataTables server side + Spatie ACL
+# Sistema de Informações de Operações Cibernéticas
 
-<h5>Installation</h5>
-<p><code>cp .env.example .env</code></p>
-<p>Edit .env parameters</p>
+## Project with Laravel 8 + AdminLTE3 + DataTables server side + Spatie ACL
 
-<p><code>composer install</code></p>
-<p><code>php artisan key:generate</code></p>
-<p><code>php artisan storage:link</code></p>
-<p><code>php artisan migrate --seed</code></p>
-<p><code>npm install && npm run dev</code></p>
+### Installation
 
-<ul>Programmer login:
-    <li>user: programador@base.com</li>
-    <li>pass: 12345678</li>
-</ul>
-<ul>Admin login:
-    <li>user: admin@base.com</li>
-    <li>pass: 12345678</li>
-</ul>
+1. `cp .env.example .env`
+2. Edit .env parameters
+3. `composer install`
+4. `php artisan key:generate`
+5. `php artisan storage:link`
+6. `php artisan migrate --seed`
+7. `npm install && npm run dev`
+
+### Programmer login
+
+- user: <programador@base.com>
+- pass: 12345678
