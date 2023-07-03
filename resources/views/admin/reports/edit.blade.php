@@ -79,7 +79,7 @@
                                                 Rascunho</option>
                                             <option
                                                 {{ old('status') == 'Publicado' ? 'selected' : ($report->status ? 'Publicado' : '') }}
-                                                value="Rascunho">
+                                                value="Publicado">
                                                 Publicado</option>
                                         </x-adminlte-select2>
                                     </div>
