@@ -70,7 +70,7 @@
                                         <x-adminlte-select2 name="status">
                                             <option {{ old('status') == 'Rascunho' ? 'selected' : '' }} value="Rascunho">
                                                 Rascunho</option>
-                                            <option {{ old('status') == 'Publicado' ? 'selected' : '' }} value="Rascunho">
+                                            <option {{ old('status') == 'Publicado' ? 'selected' : '' }} value="Publicado">
                                                 Publicado</option>
                                         </x-adminlte-select2>
                                     </div>
