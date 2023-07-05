@@ -299,7 +299,7 @@ class OperationController extends Controller
 
             //operation teams
             if ($request->teams) {
-                if (Auth::user()->hasRole('Programador|Administrador')) {
+                if (!Auth::user()->hasRole('Programador|Administrador')) {
                     $componentOrganizations = ComponentOrganization::where('organization_id', Auth::user()->organization_id)->pluck('team_id');
                     $teams = ViewsTeam::whereIn('id', $componentOrganizations)->pluck('id')->toArray();
 
@@ -354,8 +354,17 @@ class OperationController extends Controller
             abort(403, 'Acesso não autorizado');
         }
 
+        $teams = Team::select('id', 'name')->get();
+
+        $operationTeams = [];
+        foreach ($teams as $team) {
+            if (in_array($team->id, $operation->operationTeams->pluck('team_id')->toArray())) {
+                $operationTeams[] = $team->name;
+            }
+        }
+
         $histories = OperationHistory::where('operation_id', $id)->get();
-        return view('admin.operations.show', compact('operation', 'histories'));
+        return view('admin.operations.show', compact('operation', 'histories', 'operationTeams'));
     }
 
     /**
@@ -614,7 +623,7 @@ class OperationController extends Controller
             //operation teams
             if ($request->teams) {
                 $operation->operationTeams()->delete();
-                if (Auth::user()->hasRole('Programador|Administrador')) {
+                if (!Auth::user()->hasRole('Programador|Administrador')) {
                     $componentOrganizations = ComponentOrganization::where('organization_id', Auth::user()->organization_id)->pluck('team_id');
                     $teams = ViewsTeam::whereIn('id', $componentOrganizations)->pluck('id')->toArray();
 

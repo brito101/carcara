@@ -67,7 +67,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/kanban-delete-actions/{id}', [KanbanController::class, 'deleteAction'])->name('kanban.delete.actions');
 
             /** Reports */
-            Route::delete('/operations/file-delete/{id}', [ReportController::class, 'fileDelete'])->name('reports-file-delete');
+            Route::delete('/reports/file-delete/{id}', [ReportController::class, 'fileDelete'])->name('reports-file-delete');
             Route::resource('reports', ReportController::class);
 
             /**

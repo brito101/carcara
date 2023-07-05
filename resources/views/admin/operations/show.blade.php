@@ -172,6 +172,18 @@
                                 </div>
                             @endif
 
+                            @if (count($operationTeams) > 0)
+                                <div class="col-12 form-group px-0">
+                                    <label for="instructions">Times Participantes</label>
+                                    <div class="col-12 form-group px-0 d-flex flex-wrap justify-content-center"
+                                        id="situation">
+                                        <div class="col-12 px-0 border border-secondary border-2 mx-1 rounded p-2">
+                                            {{ join(' e ', array_filter(array_merge([join(', ', array_slice($operationTeams, 0, -1))], array_slice($operationTeams, -1)), 'strlen')) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="d-flex flex-wrap justify-content-between">
 
                                 @if ($operation->file)
