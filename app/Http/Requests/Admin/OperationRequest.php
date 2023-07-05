@@ -48,7 +48,7 @@ class OperationRequest extends FormRequest
             'execution' => 'nullable|max:4000000000',
             'instructions' => 'nullable|max:4000000000',
             'logistics' => 'nullable|max:4000000000',
-            'file' => 'nullable|file|max:125000'
+            'file' => 'nullable|file|max:1048576'
         ];
     }
 

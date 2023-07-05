@@ -30,7 +30,7 @@ class ReportRequest extends FormRequest
             'keys' => 'nullable|max:191',
             'platform' => 'nullable|max:191',
             'description' => 'nullable|max:4000000000',
-            'file' => 'nullable|file|max:125000|mimes:pdf',
+            'file' => 'nullable|file|max:1048576|mimes:pdf',
             'status' => 'required|in:Rascunho,Publicado',
         ];
     }

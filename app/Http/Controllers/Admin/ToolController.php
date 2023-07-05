@@ -144,7 +144,7 @@ class ToolController extends Controller
         }
 
         if ($request->file('files') != null) {
-            $validator = Validator::make($request->only('files'), ['files.*' => 'file|max:125000']);
+            $validator = Validator::make($request->only('files'), ['files.*' => 'file|max:1048576']);
             if ($validator->fails() === true) {
                 return redirect()->back()
                     ->withInput()
@@ -354,7 +354,7 @@ class ToolController extends Controller
         }
 
         if ($request->file('files') != null) {
-            $validator = Validator::make($request->only('files'), ['files.*' => 'file|max:125000']);
+            $validator = Validator::make($request->only('files'), ['files.*' => 'file|max:1048576']);
             if ($validator->fails() === true) {
                 return redirect()->back()
                     ->withInput()
