@@ -44,7 +44,7 @@ class Tool extends Model
             $values[] = $item->step['name'];
         }
 
-        return implode(",", $values);
+        return implode(", ", $values);
     }
 
     public function tags()
